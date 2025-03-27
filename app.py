@@ -235,6 +235,26 @@ if st.session_state.theme == "dark":
     a:not([style]) {
         color: #4caf50 !important;
     }
+    
+    /* File uploader */
+    .stFileUploader > div > div {
+        color: white !important;
+    }
+    
+    .stFileUploader > div > div > span {
+        color: #cccccc !important;
+    }
+    
+    /* Fix for file uploader text */
+    .stFileUploader p, .stFileUploader span, .stFileUploader label {
+        color: white !important;
+    }
+    
+    /* Make sure file uploader instructions are visible */
+    .uploadedFileData p, .stFileUploader [data-testid="stFileUploadDropzone"] p,
+    [data-testid="stFileUploadDropzone"] span, [data-testid="stFileUploadDropzone"] small {
+        color: white !important;
+    }
     </style>
     """, unsafe_allow_html=True)
     

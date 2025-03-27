@@ -30,6 +30,22 @@ def upload_section():
         )
         
         if upload_method == "Upload your own image":
+            # Check if we're in dark mode
+            is_dark_mode = 'theme' in st.session_state and st.session_state.theme == 'dark'
+            
+            # Add custom CSS for file uploader text visibility in dark mode
+            if is_dark_mode:
+                st.markdown("""
+                <style>
+                [data-testid="stFileUploadDropzone"] p {
+                    color: white !important;
+                }
+                [data-testid="stFileUploadDropzone"] small {
+                    color: rgba(250, 250, 250, 0.7) !important;
+                }
+                </style>
+                """, unsafe_allow_html=True)
+            
             uploaded_file = st.file_uploader(
                 "Choose a satellite image",
                 type=["jpg", "jpeg", "png"]
@@ -94,12 +110,19 @@ def upload_section():
         else:
             st.info("No image uploaded yet. Please upload an image or select a sample.")
             
+            # Check if we're in dark mode to determine appropriate styling
+            is_dark_mode = 'theme' in st.session_state and st.session_state.theme == 'dark'
+            
+            # Determine border and text color based on theme
+            border_color = "#555" if is_dark_mode else "#ccc"
+            text_color = "#aaa" if is_dark_mode else "#888"
+            
             # Show a placeholder for the image preview
             st.markdown(
-                """
+                f"""
                 <div style="display: flex; justify-content: center; align-items: center; 
-                height: 200px; border: 2px dashed #ccc; border-radius: 5px;">
-                    <p style="color: #888;">Image preview will appear here</p>
+                height: 200px; border: 2px dashed {border_color}; border-radius: 5px;">
+                    <p style="color: {text_color};">Image preview will appear here</p>
                 </div>
                 """, 
                 unsafe_allow_html=True
