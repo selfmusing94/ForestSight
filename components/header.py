@@ -3,10 +3,18 @@ from streamlit_extras.app_logo import add_logo
 from streamlit_extras.colored_header import colored_header
 from streamlit_extras.badges import badge
 
-def create_header():
-    """Create the header section of the dashboard with enhanced styling and professional animations."""
+def create_header(show_dashboard_elements=False):
+    """
+    Create the header section of the dashboard.
     
-    # Apply advanced styling to the header with more animations
+    Parameters:
+    -----------
+    show_dashboard_elements : bool, optional
+        If True, show the full dashboard header with statistics, cards, etc.
+        If False, show only the minimal header (for non-dashboard pages).
+    """
+    
+    # Apply advanced styling to the header with animations
     st.markdown("""
     <style>
     .header-container {
@@ -164,6 +172,7 @@ def create_header():
         box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
     }
     
+    /* Dashboard-specific styles */
     .stats-container {
         display: flex;
         justify-content: space-between;
@@ -318,66 +327,16 @@ def create_header():
     </style>
     """, unsafe_allow_html=True)
     
-    # Create enhanced header with HTML for better styling and animations
+    # Create the basic header - this is shown on all pages
     st.markdown("""
     <div class="header-container">
         <div class="logo-container">🌳</div>
         <div class="text-container">
             <h1>Deforestation Analysis Dashboard</h1>
-            <p>This interactive dashboard helps visualize and analyze deforestation patterns using satellite imagery and advanced data visualization.</p>
-            <div class="badge-container">
-                <span class="badge">Interactive Maps</span>
-                <span class="badge">Time-Series Analysis</span>
-                <span class="badge">Satellite Imagery</span>
-                <span class="badge">Real-time Monitoring</span>
-                <span class="badge">Conservation Planning</span>
-            </div>
+            <p>This interactive platform helps visualize and analyze deforestation patterns using satellite imagery and advanced data visualization.</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
-    
-    # Add global statistics with animations
-    st.markdown("""
-    <div class="stats-container">
-        <div class="stat-item">
-            <p class="stat-value">15.3B</p>
-            <p class="stat-label">🌲 Trees Cut This Year</p>
-        </div>
-        <div class="stat-item">
-            <p class="stat-value">4.8M</p>
-            <p class="stat-label">⏱️ Hectares Lost</p>
-        </div>
-        <div class="stat-item">
-            <p class="stat-value">-2.1%</p>
-            <p class="stat-label">📊 Annual Change</p>
-        </div>
-        <div class="stat-item">
-            <p class="stat-value">38.9%</p>
-            <p class="stat-label">🌊 Water Impact</p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Add global conservation goal progress bar with animation
-    goal_percentage = 72
-    st.markdown(f"""
-    <div class="progress-container">
-        <div class="progress-label">
-            <span>Global Forest Conservation Goal</span>
-            <span>{goal_percentage}%</span>
-        </div>
-        <div class="progress-bar">
-            <div class="progress-value" style="width: {goal_percentage}%;"></div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Add colored subheader using streamlit-extras
-    colored_header(
-        label="Monitoring Forest Coverage Worldwide",
-        description="Use the sidebar to navigate through different features and analysis tools",
-        color_name="green-70"
-    )
     
     # Add additional dark mode support styles
     st.markdown("""
@@ -421,30 +380,87 @@ def create_header():
     </style>
     """, unsafe_allow_html=True)
     
-    # Check if we're in dark mode
-    is_dark_mode = 'dark' in st.session_state and st.session_state.theme == 'dark'
-    
-    # Display feature cards with more appealing design and animations
-    # Using inline styles to ensure visibility in both light and dark modes
-    title_color = "#4caf50" if is_dark_mode else "#2e7d32"
-    text_color = "#ffffff" if is_dark_mode else "#555"
-    bg_color = "#1e1e1e" if is_dark_mode else "white"
-    
-    st.markdown(f"""
-    <div class="feature-cards">
-        <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-            <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">👁️ Visual Analysis</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Analyze satellite imagery with AI-powered detection algorithms</p>
+    # Only show these elements on the dashboard page
+    if show_dashboard_elements:
+        # Add badges/tags for dashboard only
+        st.markdown("""
+        <div class="badge-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem;">
+            <span class="badge">Interactive Maps</span>
+            <span class="badge">Time-Series Analysis</span>
+            <span class="badge">Satellite Imagery</span>
+            <span class="badge">Real-time Monitoring</span>
+            <span class="badge">Conservation Planning</span>
         </div>
-        <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-            <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">📊 Statistical Insights</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Comprehensive metrics and trend analysis of deforestation data</p>
+        """, unsafe_allow_html=True)
+        
+        # Add global statistics with animations
+        st.markdown("""
+        <div class="stats-container">
+            <div class="stat-item">
+                <p class="stat-value">15.3B</p>
+                <p class="stat-label">🌲 Trees Cut This Year</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-value">4.8M</p>
+                <p class="stat-label">⏱️ Hectares Lost</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-value">-2.1%</p>
+                <p class="stat-label">📊 Annual Change</p>
+            </div>
+            <div class="stat-item">
+                <p class="stat-value">38.9%</p>
+                <p class="stat-label">🌊 Water Impact</p>
+            </div>
         </div>
-        <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
-            <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">🌐 Geographic Mapping</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Interactive maps with real-time deforestation alerts and patterns</p>
+        """, unsafe_allow_html=True)
+        
+        # Add global conservation goal progress bar with animation
+        goal_percentage = 72
+        st.markdown(f"""
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Global Forest Conservation Goal</span>
+                <span>{goal_percentage}%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-value" style="width: {goal_percentage}%;"></div>
+            </div>
         </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("---")
+        """, unsafe_allow_html=True)
+        
+        # Add colored subheader using streamlit-extras for dashboard page
+        colored_header(
+            label="Monitoring Forest Coverage Worldwide",
+            description="Use the sidebar to navigate through different features and analysis tools",
+            color_name="green-70"
+        )
+        
+        # Check if we're in dark mode
+        is_dark_mode = 'theme' in st.session_state and st.session_state.theme == 'dark'
+        
+        # Display feature cards with more appealing design and animations
+        # Using inline styles to ensure visibility in both light and dark modes
+        title_color = "#4caf50" if is_dark_mode else "#2e7d32"
+        text_color = "#ffffff" if is_dark_mode else "#555"
+        bg_color = "#1e1e1e" if is_dark_mode else "white"
+        
+        st.markdown(f"""
+        <div class="feature-cards">
+            <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">👁️ Visual Analysis</h3>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Analyze satellite imagery with AI-powered detection algorithms</p>
+            </div>
+            <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">📊 Statistical Insights</h3>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Comprehensive metrics and trend analysis of deforestation data</p>
+            </div>
+            <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">🌐 Geographic Mapping</h3>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Interactive maps with real-time deforestation alerts and patterns</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Add a divider after dashboard elements
+        st.markdown("---")

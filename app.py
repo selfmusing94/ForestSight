@@ -280,8 +280,7 @@ else:
     </style>
     """, unsafe_allow_html=True)
 
-# Create header
-create_header()
+# Create a basic header by default - we'll show the dashboard elements only on the dashboard page
 
 # Enhanced Sidebar with better organization
 # Navigation section with icon - using header for cleaner look
@@ -459,8 +458,9 @@ if location != st.session_state.selected_location:
 
 # Main content based on selected page
 if page == "Overview Dashboard":
-    # Create a dashboard overview combining key elements from other pages
-    st.header("Deforestation Analysis Dashboard")
+    # Show full dashboard header with statistics and cards
+    from components.header import create_header
+    create_header(show_dashboard_elements=True)
     
     # Show brief stats in cards at the top
     col1, col2, col3 = st.columns(3)
@@ -578,27 +578,44 @@ if page == "Overview Dashboard":
         # This would normally redirect to the upload section
 
 elif page == "Upload Satellite Image":
+    # Show basic header for non-dashboard pages
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     upload_section()
     
 elif page == "Analysis Results":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     analysis_section()
     
 elif page == "Time-lapse View":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     timelapse_section()
     
 elif page == "Real-Time Monitoring":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     realtime_mapping_section()
     
 elif page == "Statistics & Metrics":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     statistics_section()
     
 elif page == "Time-Series Analysis":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     time_series_analysis()
     
 elif page == "Download Reports":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     download_section()
     
 elif page == "Take Action":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
     action_section()
 
 # Footer
