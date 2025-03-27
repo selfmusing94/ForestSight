@@ -48,6 +48,8 @@ if 'analysis_complete' not in st.session_state:
     st.session_state.analysis_complete = False
 if 'selected_location' not in st.session_state:
     st.session_state.selected_location = "Amazon Rainforest"
+if 'prev_location' not in st.session_state:
+    st.session_state.prev_location = None
 # Initialize theme state
 if 'theme' not in st.session_state:
     st.session_state.theme = "light"
@@ -449,6 +451,9 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("<small>*Data reflects most recent available statistics. Sources include global forest monitoring agencies and satellite data aggregators.</small>", unsafe_allow_html=True)
 
 if location != st.session_state.selected_location:
+    # Store previous location before changing
+    st.session_state.prev_location = st.session_state.selected_location
+    # Update to new location
     st.session_state.selected_location = location
     st.session_state.analysis_complete = False
     if location != "Custom Upload":
