@@ -20,6 +20,7 @@ from components.time_series import time_series_analysis
 from components.download import download_section
 from components.action_fixed import action_section
 from components.realtime_mapping import realtime_mapping_section
+from components.global_map import global_forest_health_section
 
 # Set page configuration
 st.set_page_config(
@@ -389,7 +390,8 @@ selected_main_section = st.sidebar.selectbox(
 dashboard_options = [
     "Overview Dashboard",
     "Statistics & Metrics",
-    "Time-Series Analysis"
+    "Time-Series Analysis",
+    "Global Forest Health"
 ]
 
 upload_analysis_options = [
@@ -424,6 +426,7 @@ all_options_with_icons = {
     "Real-Time Monitoring": "🔴 Real-Time Monitoring",
     "Statistics & Metrics": "📈 Statistics & Metrics",
     "Time-Series Analysis": "📉 Time-Series Analysis",
+    "Global Forest Health": "🌍 Global Forest Health",
     "Download Reports": "📁 Download Reports",
     "Take Action": "🌱 Take Action"
 }
@@ -708,6 +711,11 @@ elif page == "Time-Series Analysis":
     from components.header import create_header
     create_header(show_dashboard_elements=False)
     time_series_analysis()
+    
+elif page == "Global Forest Health":
+    from components.header import create_header
+    create_header(show_dashboard_elements=False)
+    global_forest_health_section()
     
 elif page == "Download Reports":
     from components.header import create_header
