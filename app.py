@@ -17,6 +17,8 @@ from components.analysis import analysis_section
 from components.timelapse import timelapse_section
 from components.statistics import statistics_section
 from components.time_series import time_series_analysis
+from components.download import download_section
+from components.action import action_section
 
 # Set page configuration
 st.set_page_config(
@@ -120,7 +122,8 @@ create_header()
 st.sidebar.title("Navigation")
 page = st.sidebar.radio(
     "Go to",
-    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Statistics & Metrics", "Time-Series Analysis"]
+    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Statistics & Metrics", 
+     "Time-Series Analysis", "Download Reports", "Take Action"]
 )
 
 st.sidebar.markdown("---")
@@ -172,7 +175,13 @@ elif page == "Statistics & Metrics":
     
 elif page == "Time-Series Analysis":
     time_series_analysis()
+    
+elif page == "Download Reports":
+    download_section()
+    
+elif page == "Take Action":
+    action_section()
 
 # Footer
 st.markdown("---")
-st.markdown("© 2023 Deforestation Analysis Dashboard | Built with Streamlit")
+st.markdown("© 2025 Deforestation Analysis Dashboard | Built with Streamlit")

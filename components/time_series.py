@@ -107,9 +107,9 @@ def time_series_analysis():
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        with card(
+        card(
             title="Total Forest Loss",
-            text=f"{stats['total_loss']:.1f}%",
+            text=f"{stats['total_loss']:.1f}%\nSince 2000",
             image=None,
             styles={
                 "card": {
@@ -128,13 +128,12 @@ def time_series_analysis():
                     "color": "white"
                 }
             },
-        ):
-            st.write("Since 2000")
+        )
     
     with col2:
-        with card(
+        card(
             title="Yearly Rate of Loss",
-            text=f"{stats['avg_yearly_loss']:.2f}%",
+            text=f"{stats['avg_yearly_loss']:.2f}%\nAverage per year",
             image=None,
             styles={
                 "card": {
@@ -153,13 +152,12 @@ def time_series_analysis():
                     "color": "white"
                 }
             },
-        ):
-            st.write("Average per year")
+        )
     
     with col3:
-        with card(
+        card(
             title="Current Coverage",
-            text=f"{stats['current_coverage']:.1f}%",
+            text=f"{stats['current_coverage']:.1f}%\nRemaining forest",
             image=None,
             styles={
                 "card": {
@@ -178,13 +176,12 @@ def time_series_analysis():
                     "color": "white"
                 }
             },
-        ):
-            st.write("Remaining forest")
+        )
     
     with col4:
-        with card(
+        card(
             title="Urban Expansion",
-            text=f"{stats['urban_expansion']:.1f}%",
+            text=f"{stats['urban_expansion']:.1f}%\nIncreased urban areas",
             image=None,
             styles={
                 "card": {
@@ -203,8 +200,7 @@ def time_series_analysis():
                     "color": "white"
                 }
             },
-        ):
-            st.write("Increased urban areas")
+        )
     
     st.markdown("---")
     
