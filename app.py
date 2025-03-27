@@ -122,10 +122,33 @@ if st.session_state.theme == "dark":
         color: white !important;
     }
     
+    /* Fix selectbox option text */
+    ul[data-baseweb="menu"] li div span {
+        color: white !important;
+    }
+    
+    ul[data-baseweb="menu"] {
+        background-color: #1e1e1e !important;
+    }
+    
+    /* Fix radio buttons in sidebar */
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
+        color: white !important;
+    }
+    
+    [data-testid="stSidebar"] div[role="radiogroup"] label span p {
+        color: white !important;
+    }
+    
     /* Fix sidebar button */
     [data-testid="stSidebar"] button {
         color: white !important;
         background-color: #4caf50 !important;
+    }
+    
+    /* Make sure all sidebar text elements are visible */
+    [data-testid="stSidebar"] * {
+        color: white !important;
     }
     
     /* Navigation and radio buttons */
@@ -625,7 +648,21 @@ elif page == "Real-Time Monitoring":
 elif page == "Statistics & Metrics":
     from components.header import create_header
     create_header(show_dashboard_elements=False)
-    statistics_section()
+    
+    # Ensure statistics section is called with proper error handling
+    try:
+        # Force analysis complete to be true for statistics to display
+        if 'analysis_complete' not in st.session_state:
+            st.session_state.analysis_complete = True
+        if not st.session_state.analysis_complete:
+            st.session_state.analysis_complete = True
+            
+        # Call the statistics section
+        statistics_section()
+    except Exception as e:
+        st.error(f"Error displaying statistics: {str(e)}")
+        st.write("Reloading statistics component...")
+        statistics_section()
     
 elif page == "Time-Series Analysis":
     from components.header import create_header
