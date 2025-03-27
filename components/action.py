@@ -23,6 +23,10 @@ def action_section():
     
     with col1:
         # First create the card
+        # Check theme and apply appropriate styles
+        bg_color = "#f1f8e9" if st.session_state.theme == "light" else "#1e3a1e"
+        text_color = "#2e7d32" if st.session_state.theme == "light" else "#ffffff"
+        
         card(
             title="Reduce Your Impact",
             text="Simple daily actions to help forests",
@@ -32,14 +36,17 @@ def action_section():
                     "width": "100%",
                     "height": "250px",
                     "border-radius": "10px",
-                    "box-shadow": "0 0 15px rgba(0,0,0,0.1)",
-                    "background-color": "#f1f8e9",
+                    "box-shadow": "0 0 15px rgba(0,0,0,0.2)",
+                    "background-color": bg_color,
                     "border-left": "4px solid #43a047",
                 },
                 "title": {
-                    "color": "#2e7d32",
+                    "color": text_color,
                     "font-size": "18px",
                 },
+                "text": {
+                    "color": text_color
+                }
             },
         )
         # Then add the content
@@ -53,6 +60,10 @@ def action_section():
     
     with col2:
         # First create the card
+        # Check theme and apply appropriate styles
+        bg_color = "#e8f5e9" if st.session_state.theme == "light" else "#1e3a1e"
+        text_color = "#2e7d32" if st.session_state.theme == "light" else "#ffffff"
+        
         card(
             title="Support Organizations",
             text="Conservation groups fighting deforestation",
@@ -62,14 +73,17 @@ def action_section():
                     "width": "100%",
                     "height": "250px",
                     "border-radius": "10px",
-                    "box-shadow": "0 0 15px rgba(0,0,0,0.1)",
-                    "background-color": "#e8f5e9",
+                    "box-shadow": "0 0 15px rgba(0,0,0,0.2)",
+                    "background-color": bg_color,
                     "border-left": "4px solid #2e7d32",
                 },
                 "title": {
-                    "color": "#2e7d32",
+                    "color": text_color,
                     "font-size": "18px",
                 },
+                "text": {
+                    "color": text_color
+                }
             },
         )
         # Then add the content
@@ -83,6 +97,10 @@ def action_section():
     
     with col3:
         # First create the card
+        # Check theme and apply appropriate styles
+        bg_color = "#dcedc8" if st.session_state.theme == "light" else "#1e3a1e"
+        text_color = "#2e7d32" if st.session_state.theme == "light" else "#ffffff"
+        
         card(
             title="Get Involved",
             text="Direct action opportunities",
@@ -92,14 +110,17 @@ def action_section():
                     "width": "100%",
                     "height": "250px",
                     "border-radius": "10px",
-                    "box-shadow": "0 0 15px rgba(0,0,0,0.1)",
-                    "background-color": "#dcedc8",
+                    "box-shadow": "0 0 15px rgba(0,0,0,0.2)",
+                    "background-color": bg_color,
                     "border-left": "4px solid #689f38",
                 },
                 "title": {
-                    "color": "#2e7d32",
+                    "color": text_color,
                     "font-size": "18px",
                 },
+                "text": {
+                    "color": text_color
+                }
             },
         )
         # Then add the content

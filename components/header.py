@@ -22,6 +22,13 @@ def create_header():
         overflow: hidden;
     }
     
+    /* Dark mode header container */
+    body.dark .header-container,
+    .dark-mode-active .header-container {
+        background: linear-gradient(90deg, rgba(46,125,50,0.3) 0%, rgba(30,30,30,0) 100%) !important;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.2) !important;
+    }
+    
     .header-container::before {
         content: "";
         position: absolute;
@@ -81,6 +88,12 @@ def create_header():
         animation-delay: 0.2s;
     }
     
+    /* Dark mode header text */
+    body.dark .text-container h1,
+    .dark-mode-active .text-container h1 {
+        color: #4caf50 !important;
+    }
+    
     .text-container p {
         margin-top: 0.5rem;
         font-size: 1.1rem;
@@ -88,6 +101,13 @@ def create_header():
         line-height: 1.6;
         animation: fadeInRight 0.8s ease-out forwards;
         animation-delay: 0.4s;
+        color: #555;
+    }
+    
+    /* Dark mode paragraph text */
+    body.dark .text-container p,
+    .dark-mode-active .text-container p {
+        color: #e0e0e0 !important;
     }
     
     @keyframes fadeInRight {
@@ -121,11 +141,27 @@ def create_header():
         transition: all 0.3s ease;
     }
     
+    /* Dark mode badges */
+    body.dark .badge,
+    .dark-mode-active .badge {
+        background-color: rgba(46, 125, 50, 0.2) !important;
+        color: #4caf50 !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+    }
+    
     .badge:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         background-color: #2e7d32;
         color: white;
+    }
+    
+    /* Dark mode badge hover */
+    body.dark .badge:hover,
+    .dark-mode-active .badge:hover {
+        background-color: #2e7d32 !important;
+        color: white !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
     }
     
     .stats-container {
@@ -146,6 +182,13 @@ def create_header():
         box-shadow: 0 3px 6px rgba(0,0,0,0.05);
     }
     
+    /* Dark mode stat items */
+    body.dark .stat-item,
+    .dark-mode-active .stat-item {
+        background-color: rgba(46, 125, 50, 0.15) !important;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.2) !important;
+    }
+    
     .stat-item:hover {
         transform: translateY(-5px);
         box-shadow: 0 6px 12px rgba(0,0,0,0.1);
@@ -158,10 +201,22 @@ def create_header():
         margin: 0;
     }
     
+    /* Dark mode stat values */
+    body.dark .stat-value,
+    .dark-mode-active .stat-value {
+        color: #4caf50 !important;
+    }
+    
     .stat-label {
         font-size: 0.85rem;
         color: #555;
         margin: 0;
+    }
+    
+    /* Dark mode stat labels */
+    body.dark .stat-label,
+    .dark-mode-active .stat-label {
+        color: #e0e0e0 !important;
     }
     
     .feature-cards {
@@ -178,6 +233,23 @@ def create_header():
         transition: all 0.3s ease;
         animation: scaleIn 0.8s ease-out forwards;
         opacity: 0;
+    }
+    
+    /* Dark mode support for feature cards */
+    .dark-mode-active .feature-card,
+    body.dark .feature-card {
+        background-color: #1e1e1e !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    }
+    
+    .dark-mode-active .feature-card h3,
+    body.dark .feature-card h3 {
+        color: #4caf50 !important;
+    }
+    
+    .dark-mode-active .feature-card p,
+    body.dark .feature-card p {
+        color: #e0e0e0 !important;
     }
     
     .feature-card:nth-child(1) {
@@ -212,11 +284,23 @@ def create_header():
         color: #555;
     }
     
+    /* Dark mode progress label */
+    body.dark .progress-label,
+    .dark-mode-active .progress-label {
+        color: #e0e0e0 !important;
+    }
+    
     .progress-bar {
         height: 8px;
         background-color: #e0e0e0;
         border-radius: 4px;
         overflow: hidden;
+    }
+    
+    /* Dark mode progress bar */
+    body.dark .progress-bar,
+    .dark-mode-active .progress-bar {
+        background-color: #333333 !important;
     }
     
     .progress-value {
@@ -290,20 +374,58 @@ def create_header():
         color_name="green-70"
     )
     
+    # Add additional dark mode support styles
+    st.markdown("""
+    <style>
+    .feature-card-title {
+        margin: 0; 
+        color: #2e7d32; 
+        font-size: 1.2rem;
+    }
+    
+    .feature-card-text {
+        margin: 0.5rem 0 0 0; 
+        font-size: 0.9rem; 
+        color: #555;
+    }
+    
+    /* Dark mode styles */
+    body.dark .feature-card-title,
+    .dark-mode-active .feature-card-title {
+        color: #4caf50 !important;
+    }
+    
+    body.dark .feature-card-text,
+    .dark-mode-active .feature-card-text {
+        color: #e0e0e0 !important;
+    }
+    
+    body.dark .stat-label,
+    .dark-mode-active .stat-label {
+        color: #e0e0e0 !important;
+    }
+    
+    body.dark .progress-label,
+    .dark-mode-active .progress-label {
+        color: #e0e0e0 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     # Display feature cards with more appealing design and animations
     st.markdown("""
     <div class="feature-cards">
         <div class="feature-card">
-            <h3 style="margin: 0; color: #2e7d32; font-size: 1.2rem;">👁️ Visual Analysis</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #555;">Analyze satellite imagery with AI-powered detection algorithms</p>
+            <h3 class="feature-card-title">👁️ Visual Analysis</h3>
+            <p class="feature-card-text">Analyze satellite imagery with AI-powered detection algorithms</p>
         </div>
         <div class="feature-card">
-            <h3 style="margin: 0; color: #2e7d32; font-size: 1.2rem;">📊 Statistical Insights</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #555;">Comprehensive metrics and trend analysis of deforestation data</p>
+            <h3 class="feature-card-title">📊 Statistical Insights</h3>
+            <p class="feature-card-text">Comprehensive metrics and trend analysis of deforestation data</p>
         </div>
         <div class="feature-card">
-            <h3 style="margin: 0; color: #2e7d32; font-size: 1.2rem;">🌐 Geographic Mapping</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #555;">Interactive maps with real-time deforestation alerts and patterns</p>
+            <h3 class="feature-card-title">🌐 Geographic Mapping</h3>
+            <p class="feature-card-text">Interactive maps with real-time deforestation alerts and patterns</p>
         </div>
     </div>
     """, unsafe_allow_html=True)

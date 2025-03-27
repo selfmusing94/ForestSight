@@ -102,6 +102,32 @@ html, body, [class*="css"] {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Dark mode buttons */
+.dark .stButton > button, 
+.dark [data-testid="baseButton-secondary"],
+.dark [data-baseweb="button"],
+.dark button[kind="formSubmit"] {
+    color: white !important;
+    border-color: #4caf50 !important;
+    background-color: #2e7d32 !important;
+}
+
+.dark .stButton > button:hover {
+    background-color: #388e3c !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Form submit buttons */
+[kind="formSubmit"] {
+    border-radius: 30px !important;
+    transition: all 0.3s ease !important;
+}
+
+.dark [kind="formSubmit"] {
+    color: white !important;
+    background-color: #2e7d32 !important;
+}
+
 /* Primary button animation */
 .stButton > button[data-baseweb="button"] {
     animation: fadeIn 1s ease-out;
@@ -368,6 +394,34 @@ html, body, [class*="css"] {
     background-color: #1f2229 !important;
 }
 
+.dark [data-testid="stExpander"] {
+    border-color: #4caf50 !important;
+    background-color: #1f2229 !important;
+}
+
+.dark [data-testid="stExpander"] .streamlit-expanderContent {
+    background-color: #1f2229 !important;
+    color: white !important;
+}
+
+/* Dark mode form fields */
+.dark [data-testid="stForm"] {
+    background-color: #1e1e1e !important;
+    border-color: #4caf50 !important;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.dark [data-testid="stMarkdownContainer"] a {
+    color: #81c784 !important;
+    font-weight: 500;
+}
+
+.dark [data-testid="stMarkdownContainer"] a:hover {
+    color: #a5d6a7 !important;
+    text-decoration: underline;
+}
+
 /* Info/Warning/Error boxes */
 .dark .stAlert {
     background-color: #1f2229 !important;
@@ -416,6 +470,15 @@ html, body, [class*="css"] {
     transition: all 0.5s ease-out;
 }
 
+/* Dark mode progress bars */
+.dark .stProgress > div {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .stProgress > div > div > div > div {
+    background: linear-gradient(to right, #388e3c, #4caf50) !important;
+}
+
 /* Alert section animation */
 .alert-section {
     animation: slideInFromLeft 0.8s ease-out;
@@ -461,6 +524,22 @@ html, body, [class*="css"] {
 .status-danger {
     background-color: #ffcdd2;
     color: #c62828;
+}
+
+/* Dark mode status labels */
+.dark .status-success {
+    background-color: rgba(200, 230, 201, 0.2);
+    color: #a5d6a7;
+}
+
+.dark .status-warning {
+    background-color: rgba(255, 248, 225, 0.2);
+    color: #ffe082;
+}
+
+.dark .status-danger {
+    background-color: rgba(255, 205, 210, 0.2);
+    color: #ef9a9a;
 }
 
 /* Responsive adjustments */
