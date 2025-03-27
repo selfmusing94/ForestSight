@@ -32,13 +32,13 @@ def analysis_section():
         if view_option == "Original Image" and st.session_state.uploaded_image is not None:
             st.image(
                 st.session_state.uploaded_image, 
-                use_column_width=True, 
+                use_container_width=True, 
                 caption="Original Satellite Image"
             )
         elif view_option == "Analyzed Image with Deforestation Highlighted" and st.session_state.analyzed_image is not None:
             st.image(
                 st.session_state.analyzed_image, 
-                use_column_width=True, 
+                use_container_width=True, 
                 caption="Deforested Areas Highlighted"
             )
         

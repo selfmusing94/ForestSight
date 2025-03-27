@@ -37,7 +37,7 @@ def timelapse_section():
             if selected_year in st.session_state.timelapse_images:
                 st.image(
                     st.session_state.timelapse_images[selected_year],
-                    use_column_width=True,
+                    use_container_width=True,
                     caption=f"Satellite Image from {selected_year}"
                 )
             
@@ -57,7 +57,7 @@ def timelapse_section():
                     # Display image
                     st.image(
                         st.session_state.timelapse_images[year],
-                        use_column_width=True,
+                        use_container_width=True,
                         caption=f"Satellite Image from {year}"
                     )
                     
@@ -65,7 +65,7 @@ def timelapse_section():
                     
                     # Clear output for next frame (except for the last one)
                     if i < len(years) - 1:
-                        st.experimental_rerun()
+                        st.rerun()
                 
                 progress_bar.progress(1.0)
         else:
@@ -79,7 +79,7 @@ def timelapse_section():
             if st.session_state.analyzed_image is not None:
                 st.image(
                     st.session_state.analyzed_image,
-                    use_column_width=True,
+                    use_container_width=True,
                     caption="Current Analysis (Time-lapse not available)"
                 )
     

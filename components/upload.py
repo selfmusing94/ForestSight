@@ -90,7 +90,7 @@ def upload_section():
     with col2:
         st.subheader("Image Preview")
         if st.session_state.uploaded_image is not None:
-            st.image(st.session_state.uploaded_image, use_column_width=True, caption="Uploaded Image")
+            st.image(st.session_state.uploaded_image, use_container_width=True, caption="Uploaded Image")
         else:
             st.info("No image uploaded yet. Please upload an image or select a sample.")
             
