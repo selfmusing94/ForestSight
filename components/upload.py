@@ -25,6 +25,47 @@ def upload_section():
         </style>
         """, unsafe_allow_html=True)
     
+    # Add CSS for format display
+    st.markdown("""
+    <style>
+    body.dark .format-box,
+    .dark-mode-active .format-box {
+        background-color: rgba(76, 175, 80, 0.15) !important;
+    }
+    
+    body.dark .format-title,
+    .dark-mode-active .format-title {
+        color: #4caf50 !important;
+    }
+    
+    body.dark .format-tag,
+    .dark-mode-active .format-tag {
+        background-color: rgba(76, 175, 80, 0.3) !important;
+        color: #e0e0e0 !important;
+    }
+    
+    body.dark .format-text,
+    .dark-mode-active .format-text {
+        color: #e0e0e0 !important;
+    }
+    
+    .format-tag:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .format-box:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        transform: translateY(-2px);
+    }
+    
+    body.dark .format-box:hover,
+    .dark-mode-active .format-box:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
     # Use beautiful component styling from the header CSS
     st.markdown("""
     <div class="component-section">
@@ -46,44 +87,6 @@ def upload_section():
                 <p class="format-text" style="margin: 0; font-size: 0.9rem; transition: color 0.3s ease;">1000×1000 pixels or higher for optimal analysis results</p>
             </div>
         </div>
-        
-        <style>
-        body.dark .format-box,
-        .dark-mode-active .format-box {
-            background-color: rgba(76, 175, 80, 0.15) !important;
-        }
-        
-        body.dark .format-title,
-        .dark-mode-active .format-title {
-            color: #4caf50 !important;
-        }
-        
-        body.dark .format-tag,
-        .dark-mode-active .format-tag {
-            background-color: rgba(76, 175, 80, 0.3) !important;
-            color: #e0e0e0 !important;
-        }
-        
-        body.dark .format-text,
-        .dark-mode-active .format-text {
-            color: #e0e0e0 !important;
-        }
-        
-        .format-tag:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .format-box:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-            transform: translateY(-2px);
-        }
-        
-        body.dark .format-box:hover,
-        .dark-mode-active .format-box:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-        }
-        </style>
     </div>
     """, unsafe_allow_html=True)
     
