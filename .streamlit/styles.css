@@ -259,33 +259,36 @@ html, body, [class*="css"] {
     padding: 0.75rem;
 }
 
-/* Sidebar divider */
+/* Professional sidebar divider */
 [data-testid="stSidebar"] hr {
     margin: 1.5rem 0;
     border: none;
     height: 1px;
-    background: linear-gradient(90deg, #4caf50, transparent);
+    background: linear-gradient(90deg, #4caf50, rgba(76, 175, 80, 0.1), transparent);
+    opacity: 0.8;
 }
 
-/* Sidebar section styling */
-.sidebar-section {
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 8px;
-    padding: 1rem;
-    margin: 0.5rem 0;
-    border-left: 4px solid #4caf50;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    animation: fadeIn 0.5s ease-out;
+/* Enhanced sidebar headers */
+[data-testid="stSidebar"] h1, 
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    position: relative;
+    margin-bottom: 1.25rem;
+    color: #2e7d32 !important;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 }
 
-.dark .sidebar-section {
-    background-color: rgba(40, 40, 40, 0.7);
-    border-left: 4px solid #4caf50;
-}
-
-/* Sidebar section header */
-.sidebar-section-header {
-    margin-bottom: 0.75rem;
+/* Professional header underline effect */
+[data-testid="stSidebar"] h3::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: #4caf50;
+    border-radius: 3px;
 }
 
 /* Emoji icon styling in sidebar */
@@ -428,13 +431,20 @@ html, body, [class*="css"] {
 .dark [data-testid="stSidebar"] h1::after,
 .dark [data-testid="stSidebar"] h2::after,
 .dark [data-testid="stSidebar"] h3::after {
-    background: linear-gradient(90deg, #4caf50, transparent) !important;
+    background-color: #4caf50 !important;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
 
 .dark [data-testid="stSidebar"] h1,
 .dark [data-testid="stSidebar"] h2,
 .dark [data-testid="stSidebar"] h3 {
     color: #4caf50 !important;
+}
+
+/* Dark mode sidebar dividers */
+.dark [data-testid="stSidebar"] hr {
+    background: linear-gradient(90deg, #4caf50, rgba(76, 175, 80, 0.1), rgba(30, 30, 30, 0)) !important;
+    opacity: 0.7 !important;
 }
 
 /* Dark mode sidebar navigation items */

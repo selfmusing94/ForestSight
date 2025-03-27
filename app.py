@@ -284,10 +284,8 @@ else:
 create_header()
 
 # Enhanced Sidebar with better organization
-# Navigation section with icon
-st.sidebar.markdown('<div class="sidebar-section-header">', unsafe_allow_html=True)
+# Navigation section with icon - using header for cleaner look
 st.sidebar.title("🧭 Navigation")
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
 # Organized navigation with sections and icons
 options = [
@@ -327,8 +325,7 @@ page = option_map[selected_formatted]
 
 st.sidebar.markdown("---")
 
-# About section with improved styling
-st.sidebar.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+# About section with clean styling
 st.sidebar.header("🌍 About")
 st.sidebar.markdown(
     """
@@ -339,12 +336,10 @@ st.sidebar.markdown(
     📊 Analyze patterns, view statistics, and monitor changes over time.
     """
 )
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
 
 # Appearance section
-st.sidebar.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
 st.sidebar.header("🎨 Appearance")
 current_theme = "Dark" if st.session_state.theme == "dark" else "Light"
 st.sidebar.markdown(f"**Current theme:** {current_theme}")
@@ -354,44 +349,44 @@ theme_toggle = st.sidebar.button(
     key="theme_toggle",
     help="Switch between dark and light mode"
 )
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
 
-# Sample locations section with enhanced information
-st.sidebar.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+# Sample locations section with professional styling
 st.sidebar.header("🗺️ Sample Locations")
 location = st.sidebar.selectbox(
     "Select a region to analyze",
     ["Amazon Rainforest", "Borneo", "Congo Basin", "Custom Upload"]
 )
 
+# Style for location info items
+location_info_style = "padding-left: 10px; margin: 5px 0; border-left: 2px solid #4caf50;"
+
 # Add detailed information about the selected location
 if location == "Amazon Rainforest":
     st.sidebar.markdown("**Amazon Rainforest**: The largest tropical rainforest in the world, spanning 9 countries.")
-    st.sidebar.markdown("🌧️ **Annual Rainfall**: 2,000-3,000 mm")
-    st.sidebar.markdown("🌳 **Tree Species**: 16,000+")
-    st.sidebar.markdown("🔥 **Deforestation Rate**: 0.9% annually")
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🌧️ <b>Annual Rainfall</b>: 2,000-3,000 mm</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🌳 <b>Tree Species</b>: 16,000+</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🔥 <b>Deforestation Rate</b>: 0.9% annually</div>", unsafe_allow_html=True)
 elif location == "Borneo":
     st.sidebar.markdown("**Borneo**: The third-largest island in the world with ancient rainforests.")
-    st.sidebar.markdown("🌧️ **Annual Rainfall**: 2,500-4,000 mm")
-    st.sidebar.markdown("🦧 **Endemic Species**: 222 mammals")
-    st.sidebar.markdown("🔥 **Deforestation Rate**: 1.3% annually")
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🌧️ <b>Annual Rainfall</b>: 2,500-4,000 mm</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🦧 <b>Endemic Species</b>: 222 mammals</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🔥 <b>Deforestation Rate</b>: 1.3% annually</div>", unsafe_allow_html=True)
 elif location == "Congo Basin":
     st.sidebar.markdown("**Congo Basin**: Africa's largest contiguous forest and the second-largest tropical rainforest globally.")
-    st.sidebar.markdown("🌧️ **Annual Rainfall**: 1,700-2,200 mm")
-    st.sidebar.markdown("🌳 **Area**: 2 million square kilometers")
-    st.sidebar.markdown("🔥 **Deforestation Rate**: 0.3% annually")
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🌧️ <b>Annual Rainfall</b>: 1,700-2,200 mm</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🌳 <b>Area</b>: 2 million square kilometers</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>🔥 <b>Deforestation Rate</b>: 0.3% annually</div>", unsafe_allow_html=True)
 elif location == "Custom Upload":
     st.sidebar.markdown("**Custom Upload**: Analyze your own satellite imagery.")
-    st.sidebar.markdown("📤 Upload satellite imagery in the Upload section")
-    st.sidebar.markdown("⚙️ Our AI will process and analyze your data")
-    st.sidebar.markdown("📊 View detailed deforestation metrics and visualization")
+    st.sidebar.markdown(f"<div style='{location_info_style}'>📤 Upload satellite imagery in the Upload section</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>⚙️ Our AI will process and analyze your data</div>", unsafe_allow_html=True)
+    st.sidebar.markdown(f"<div style='{location_info_style}'>📊 View detailed deforestation metrics and visualization</div>", unsafe_allow_html=True)
 
 # Add a small note about data sources
 st.sidebar.markdown("---")
 st.sidebar.markdown("<small>*Data reflects most recent available statistics. Sources include global forest monitoring agencies and satellite data aggregators.</small>", unsafe_allow_html=True)
-st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
 if location != st.session_state.selected_location:
     st.session_state.selected_location = location
