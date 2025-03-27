@@ -25,45 +25,51 @@ def upload_section():
         </style>
         """, unsafe_allow_html=True)
     
-    # Add CSS for format display
+    # Add dark mode-specific JS to modify elements based on theme
     st.markdown("""
-    <style>
-    body.dark .format-box,
-    .dark-mode-active .format-box {
-        background-color: rgba(76, 175, 80, 0.15) !important;
+    <script>
+    // Check if dark mode is active
+    function isDarkMode() {
+        return document.body.classList.contains('dark') || 
+               document.documentElement.classList.contains('dark-mode-active');
     }
     
-    body.dark .format-title,
-    .dark-mode-active .format-title {
-        color: #4caf50 !important;
+    // Apply dark mode colors to format boxes
+    function updateColors() {
+        if (isDarkMode()) {
+            // Format boxes in dark mode
+            const formatBoxes = document.querySelectorAll('.component-section h4');
+            formatBoxes.forEach(el => {
+                el.style.color = '#4caf50';
+            });
+            
+            // Background color of format boxes
+            const formatContainers = document.querySelectorAll('.component-section [style*="background-color: rgba(76, 175, 80, 0.1)"]');
+            formatContainers.forEach(el => {
+                el.style.backgroundColor = 'rgba(76, 175, 80, 0.15)';
+            });
+            
+            // Format tags
+            const formatTags = document.querySelectorAll('.component-section [style*="background-color: rgba(76, 175, 80, 0.2)"]');
+            formatTags.forEach(el => {
+                el.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
+                el.style.color = '#e0e0e0';
+            });
+            
+            // Text color
+            const formatTexts = document.querySelectorAll('.component-section p');
+            formatTexts.forEach(el => {
+                el.style.color = '#e0e0e0';
+            });
+        }
     }
     
-    body.dark .format-tag,
-    .dark-mode-active .format-tag {
-        background-color: rgba(76, 175, 80, 0.3) !important;
-        color: #e0e0e0 !important;
-    }
+    // Run when the page loads
+    document.addEventListener('DOMContentLoaded', updateColors);
     
-    body.dark .format-text,
-    .dark-mode-active .format-text {
-        color: #e0e0e0 !important;
-    }
-    
-    .format-tag:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .format-box:hover {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-        transform: translateY(-2px);
-    }
-    
-    body.dark .format-box:hover,
-    .dark-mode-active .format-box:hover {
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
-    }
-    </style>
+    // Also run periodically to catch theme changes
+    setInterval(updateColors, 1000);
+    </script>
     """, unsafe_allow_html=True)
     
     # Use beautiful component styling from the header CSS
@@ -73,18 +79,18 @@ def upload_section():
         <p>Upload 'before' and 'after' satellite imagery to analyze deforestation patterns.
         The system will process both images and highlight areas where deforestation has been detected between the two timepoints.</p>
         
-        <div class="format-container" style="display: flex; gap: 1.5rem; margin-top: 1rem;">
-            <div class="format-box" style="background-color: rgba(76, 175, 80, 0.1); padding: 0.8rem 1.2rem; border-radius: 8px; flex: 1; transition: all 0.3s ease;">
-                <h4 class="format-title" style="margin-top: 0; margin-bottom: 0.5rem; color: #2e7d32; font-size: 1rem;">📁 Supported Formats</h4>
+        <div style="margin-top: 1.2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1rem; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)';">
+                <h4 style="margin-top: 0; margin-bottom: 0.7rem; color: #2e7d32; font-size: 1rem;">📁 Supported Formats</h4>
                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <span class="format-tag" style="background-color: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease;">.jpg</span>
-                    <span class="format-tag" style="background-color: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease;">.jpeg</span>
-                    <span class="format-tag" style="background-color: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease;">.png</span>
+                    <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">.jpg</span>
+                    <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">.jpeg</span>
+                    <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">.png</span>
                 </div>
             </div>
-            <div class="format-box" style="background-color: rgba(76, 175, 80, 0.1); padding: 0.8rem 1.2rem; border-radius: 8px; flex: 1; transition: all 0.3s ease;">
-                <h4 class="format-title" style="margin-top: 0; margin-bottom: 0.5rem; color: #2e7d32; font-size: 1rem;">🔍 Recommended Resolution</h4>
-                <p class="format-text" style="margin: 0; font-size: 0.9rem; transition: color 0.3s ease;">1000×1000 pixels or higher for optimal analysis results</p>
+            <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1rem; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)';">
+                <h4 style="margin-top: 0; margin-bottom: 0.7rem; color: #2e7d32; font-size: 1rem;">🔍 Recommended Resolution</h4>
+                <p style="margin: 0; font-size: 0.9rem;">1000×1000 pixels or higher for optimal analysis results</p>
             </div>
         </div>
     </div>
