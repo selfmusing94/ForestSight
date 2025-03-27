@@ -459,14 +459,30 @@ def time_series_analysis():
         )
     )
     
-    # Highlight the current year
-    # Convert timestamp to string to avoid arithmetic operations on Timestamp objects
-    fig4.add_vline(
-        x=last_date.strftime('%Y-%m-%d'), 
-        line_dash="dash", 
-        line_color="rgba(0, 0, 0, 0.5)",
-        annotation_text="Current",
-        annotation_position="top right"
+    # Instead of using add_vline (which has issues with string dates), 
+    # let's add a vertical line as a shape
+    fig4.update_layout(
+        shapes=[
+            dict(
+                type="line",
+                yref="paper", y0=0, y1=1,
+                xref="x", x0=last_date.strftime('%Y-%m-%d'), x1=last_date.strftime('%Y-%m-%d'),
+                line=dict(color="rgba(0, 0, 0, 0.5)", width=1, dash="dash")
+            )
+        ],
+        annotations=[
+            dict(
+                x=last_date.strftime('%Y-%m-%d'),
+                y=1.0,
+                xref="x",
+                yref="paper",
+                text="Current",
+                showarrow=False,
+                xanchor="left",
+                bgcolor="rgba(255, 255, 255, 0.8)",
+                borderpad=4
+            )
+        ]
     )
     
     fig4.update_layout(
