@@ -116,13 +116,19 @@ if st.session_state.theme == "dark":
         color: white !important;
     }
     
-    /* Fix sidebar selectbox */
-    [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div:first-child {
+    /* Enhanced fix for sidebar selectbox */
+    [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div:first-child,
+    [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div:first-child > div,
+    [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div:first-child > div > div,
+    [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] input {
         background-color: #2b2b2b !important;
         color: white !important;
     }
     
-    /* Fix selectbox option text */
+    /* Enhanced fix for selectbox option text */
+    [data-testid="stSidebar"] ul[data-baseweb="menu"] li,
+    [data-testid="stSidebar"] ul[data-baseweb="menu"] li div,
+    [data-testid="stSidebar"] ul[data-baseweb="menu"] li div span,
     ul[data-baseweb="menu"] li div span {
         color: white !important;
     }
@@ -131,12 +137,50 @@ if st.session_state.theme == "dark":
         background-color: #1e1e1e !important;
     }
     
-    /* Fix radio buttons in sidebar */
-    [data-testid="stSidebar"] div[role="radiogroup"] label {
+    /* Improve dropdown items */
+    [data-testid="stSidebar"] [role="listbox"] div,
+    [data-testid="stSidebar"] [role="listbox"] span {
         color: white !important;
     }
     
-    [data-testid="stSidebar"] div[role="radiogroup"] label span p {
+    /* Enhanced Dark Mode Sidebar Styling */
+    /* Comprehensive fix for all sidebar text elements */
+    [data-testid="stSidebar"] *,
+    [data-testid="stSidebar"] .stSelectbox * label,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] div,
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] li,
+    [data-testid="stSidebar"] ul {
+        color: white !important;
+    }
+    
+    /* Sidebar navigation elements - extra specific */
+    [data-testid="stSidebar"] [role="radiogroup"] label div span p,
+    [data-testid="stSidebar"] [data-baseweb="select"] div div div,
+    [data-testid="stSidebar"] [data-baseweb="select"] span,
+    [data-testid="stSidebar"] [data-baseweb="select"] div span span,
+    [data-testid="stSidebar"] [data-testid="stVerticalBlock"] span,
+    [data-testid="stSidebar"] [data-testid="stWidgetLabel"] {
+        color: white !important;
+        background-color: transparent !important;
+    }
+    
+    /* Fix sidebar selectbox dropdown elements */
+    [data-testid="stSidebar"] ul[data-baseweb="menu"] li,
+    [data-testid="stSidebar"] ul[data-baseweb="menu"] li div,
+    [data-testid="stSidebar"] ul[data-baseweb="menu"] li div span {
+        color: white !important;
+    }
+    
+    /* Fix radio buttons in sidebar with stronger selector */
+    [data-testid="stSidebar"] div[role="radiogroup"] label,
+    [data-testid="stSidebar"] div[role="radiogroup"] label div,
+    [data-testid="stSidebar"] div[role="radiogroup"] label div span,
+    [data-testid="stSidebar"] div[role="radiogroup"] label div span p {
         color: white !important;
     }
     
@@ -144,11 +188,7 @@ if st.session_state.theme == "dark":
     [data-testid="stSidebar"] button {
         color: white !important;
         background-color: #4caf50 !important;
-    }
-    
-    /* Make sure all sidebar text elements are visible */
-    [data-testid="stSidebar"] * {
-        color: white !important;
+        border-color: #388e3c !important;
     }
     
     /* Navigation and radio buttons */
