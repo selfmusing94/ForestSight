@@ -48,10 +48,11 @@ if 'analysis_complete' not in st.session_state:
     st.session_state.analysis_complete = False
 if 'selected_location' not in st.session_state:
     st.session_state.selected_location = "Amazon Rainforest"
-if 'timelapse_images' not in st.session_state:
-    st.session_state.timelapse_images = {}
+# Initialize theme state
 if 'theme' not in st.session_state:
     st.session_state.theme = "light"
+if 'timelapse_images' not in st.session_state:
+    st.session_state.timelapse_images = {}
 if 'time_series_data' not in st.session_state:
     st.session_state.time_series_data = None
 if 'forest_loss_stats' not in st.session_state:
@@ -63,7 +64,8 @@ def toggle_theme():
         st.session_state.theme = "dark"
     else:
         st.session_state.theme = "light"
-    # Theme will be applied after rerun
+    # Force rerun to apply theme changes immediately
+    st.rerun()  # Use the rerun method to refresh the app
 
 # Apply current theme with dark mode class
 if st.session_state.theme == "dark":
@@ -166,8 +168,29 @@ if st.session_state.theme == "dark":
     .stButton button {
         background-color: #4caf50 !important; 
         color: white !important;
+        font-weight: 500 !important;
+        text-shadow: 0px 0px 1px rgba(0,0,0,0.3) !important;
     }
     
+    .stButton button:hover {
+        background-color: #45a049 !important;
+        border-color: #555 !important;
+    }
+    
+    /* Ensure all button text is visible */
+    button, .stButton > button, div[data-testid="stForm"] button {
+        color: white !important;
+        background-color: #4caf50 !important;
+        font-weight: 500 !important;
+        text-shadow: 0px 0px 1px rgba(0,0,0,0.3) !important;
+    }
+    
+    /* Radio buttons */
+    .stRadio label, .stRadio div, .stRadio p {
+        color: white !important;
+    }
+    
+    /* All sliders */
     .stSlider label, .stSlider p, .stSlider div {
         color: white !important;
     }
@@ -179,9 +202,28 @@ if st.session_state.theme == "dark":
     }
     
     /* Expanders */
-    .streamlit-expanderHeader {
+    .streamlit-expanderHeader, .streamlit-expanderContent {
         background-color: #1e1e1e !important;
         color: white !important;
+    }
+    
+    /* All card elements */
+    [data-testid="stCard"], .element-container div div div div [data-testid="stHorizontalBlock"] div div {
+        background-color: #1e1e1e !important;
+        color: white !important;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    /* Feature cards specific */
+    .feature-card, .feature-card * {
+        color: white !important;
+    }
+    
+    .feature-card-title {
+        color: #4caf50 !important;
+        font-weight: bold !important;
     }
     
     /* Small text and captions */
