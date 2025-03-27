@@ -7,9 +7,9 @@ import numpy as np
 import json
 import random
 from streamlit_extras.colored_header import colored_header
-from streamlit_extras.card import card
 from datetime import datetime, timedelta
 import time
+import folium.plugins
 
 # Import utilities
 from utils.mapping import create_map_with_deforestation
@@ -110,14 +110,16 @@ def create_alert_map(alerts_df, center_lat, center_lon, zoom=9):
         tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         attr='Esri',
         name='Satellite',
-        overlay=False
+        overlay=False,
+        control=True
     ).add_to(m)
     
     # Add Forest Cover layer (simulated)
     folium.TileLayer(
         tiles='OpenStreetMap',
         name='Base Map',
-        overlay=False
+        overlay=False,
+        control=True
     ).add_to(m)
     
     # Create marker clusters for alerts
@@ -176,7 +178,12 @@ def create_alert_map(alerts_df, center_lat, center_lon, zoom=9):
     folium.plugins.HeatMap(
         heat_data,
         radius=15,
-        gradient={0.4: 'blue', 0.65: 'yellow', 0.9: 'orange', 1.0: 'red'},
+        gradient={
+            0.4: 'blue', 
+            0.65: 'yellow', 
+            0.9: 'orange', 
+            1.0: 'red'
+        },
         name="Heat Map",
         min_opacity=0.5,
         max_zoom=10
@@ -186,7 +193,9 @@ def create_alert_map(alerts_df, center_lat, center_lon, zoom=9):
     folium.LayerControl().add_to(m)
     
     # Add fullscreen button
-    folium.plugins.Fullscreen().add_to(m)
+    folium.plugins.Fullscreen(
+        position='topleft'
+    ).add_to(m)
     
     # Add measure tool
     folium.plugins.MeasureControl(
@@ -250,19 +259,43 @@ def realtime_mapping_section():
         time.sleep(0.5)
         alerts_df = get_recent_alerts(location, days_back)
     
-    # Display stats about alerts
+    # Display stats about alerts with custom styling
     col1, col2, col3, col4 = st.columns(4)
     with col1:
-        card(f"**{len(alerts_df)}**", "Total Alerts", icon="🚨", color="#FF5252")
+        with st.container():
+            st.markdown(f"""
+            <div style="padding: 10px; border-radius: 10px; background-color: #FF5252; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <h1 style="margin: 0; font-size: 32px; color: white;">{len(alerts_df)}</h1>
+                <p style="margin: 0; color: white;">🚨 Total Alerts</p>
+            </div>
+            """, unsafe_allow_html=True)
     with col2:
         high_severity = len(alerts_df[alerts_df['severity'] >= 4])
-        card(f"**{high_severity}**", "High Severity", icon="⚠️", color="#B71C1C")
+        with st.container():
+            st.markdown(f"""
+            <div style="padding: 10px; border-radius: 10px; background-color: #B71C1C; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <h1 style="margin: 0; font-size: 32px; color: white;">{high_severity}</h1>
+                <p style="margin: 0; color: white;">⚠️ High Severity</p>
+            </div>
+            """, unsafe_allow_html=True)
     with col3:
         total_area = round(alerts_df['area_ha'].sum(), 2)
-        card(f"**{total_area}** ha", "Area Affected", icon="🌲", color="#2E7D32")
+        with st.container():
+            st.markdown(f"""
+            <div style="padding: 10px; border-radius: 10px; background-color: #2E7D32; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <h1 style="margin: 0; font-size: 32px; color: white;">{total_area} ha</h1>
+                <p style="margin: 0; color: white;">🌲 Area Affected</p>
+            </div>
+            """, unsafe_allow_html=True)
     with col4:
         newest_alert = (datetime.now() - alerts_df['date'].max()).days
-        card(f"**{newest_alert}** days ago", "Latest Alert", icon="📅", color="#1565C0")
+        with st.container():
+            st.markdown(f"""
+            <div style="padding: 10px; border-radius: 10px; background-color: #1565C0; text-align: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <h1 style="margin: 0; font-size: 32px; color: white;">{newest_alert} days ago</h1>
+                <p style="margin: 0; color: white;">📅 Latest Alert</p>
+            </div>
+            """, unsafe_allow_html=True)
     
     # Create and display map
     st.subheader("Deforestation Alert Map")
