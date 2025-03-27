@@ -421,20 +421,28 @@ def create_header():
     </style>
     """, unsafe_allow_html=True)
     
+    # Check if we're in dark mode
+    is_dark_mode = 'dark' in st.session_state and st.session_state.theme == 'dark'
+    
     # Display feature cards with more appealing design and animations
-    st.markdown("""
+    # Using inline styles to ensure visibility in both light and dark modes
+    title_color = "#4caf50" if is_dark_mode else "#2e7d32"
+    text_color = "#ffffff" if is_dark_mode else "#555"
+    bg_color = "#1e1e1e" if is_dark_mode else "white"
+    
+    st.markdown(f"""
     <div class="feature-cards">
-        <div class="feature-card">
-            <h3 class="feature-card-title">👁️ Visual Analysis</h3>
-            <p class="feature-card-text">Analyze satellite imagery with AI-powered detection algorithms</p>
+        <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">👁️ Visual Analysis</h3>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Analyze satellite imagery with AI-powered detection algorithms</p>
         </div>
-        <div class="feature-card">
-            <h3 class="feature-card-title">📊 Statistical Insights</h3>
-            <p class="feature-card-text">Comprehensive metrics and trend analysis of deforestation data</p>
+        <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">📊 Statistical Insights</h3>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Comprehensive metrics and trend analysis of deforestation data</p>
         </div>
-        <div class="feature-card">
-            <h3 class="feature-card-title">🌐 Geographic Mapping</h3>
-            <p class="feature-card-text">Interactive maps with real-time deforestation alerts and patterns</p>
+        <div class="feature-card" style="background-color: {bg_color}; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            <h3 style="margin: 0; color: {title_color}; font-size: 1.2rem;">🌐 Geographic Mapping</h3>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: {text_color};">Interactive maps with real-time deforestation alerts and patterns</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
