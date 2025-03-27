@@ -225,11 +225,15 @@ def time_series_analysis():
     
     # Create interactive time series chart
     st.subheader("Forest Cover Over Time")
+    # Create a copy of the dataframe with string dates to avoid timestamp arithmetic issues
+    plot_df = filtered_df.copy()
+    plot_df['date_str'] = plot_df['date'].dt.strftime('%Y-%m-%d')
+    
     fig = px.line(
-        filtered_df, 
-        x='date', 
+        plot_df, 
+        x='date_str', 
         y='forest_cover',
-        labels={'date': 'Year', 'forest_cover': 'Forest Cover (%)'},
+        labels={'date_str': 'Year', 'forest_cover': 'Forest Cover (%)'},
         title=f"Forest Cover Changes in {location}",
         line_shape='spline',
         template="plotly_white" if st.session_state.theme == "light" else "plotly_dark",
@@ -265,8 +269,8 @@ def time_series_analysis():
     # Add shaded area under line
     fig.add_traces(
         go.Scatter(
-            x=filtered_df['date'],
-            y=filtered_df['forest_cover'],
+            x=plot_df['date_str'],
+            y=plot_df['forest_cover'],
             mode='none',
             fill='tozeroy',
             fillcolor='rgba(46, 125, 50, 0.2)',
@@ -277,8 +281,8 @@ def time_series_analysis():
     # Add horizontal line for critical threshold
     fig.add_shape(
         type="line",
-        x0=filtered_df['date'].min(),
-        x1=filtered_df['date'].max(),
+        x0=plot_df['date_str'].iloc[0],
+        x1=plot_df['date_str'].iloc[-1],
         y0=70,  # Critical threshold
         y1=70,
         line=dict(color="red", width=2, dash="dash"),
@@ -286,7 +290,7 @@ def time_series_analysis():
     
     # Add annotation for threshold
     fig.add_annotation(
-        x=filtered_df['date'].max(),
+        x=plot_df['date_str'].iloc[-1],
         y=70,
         text="Critical Threshold",
         showarrow=True,
@@ -304,11 +308,15 @@ def time_series_analysis():
     st.subheader("Forest Cover vs. Urban Expansion")
     fig2 = go.Figure()
     
+    # Create a copy with string dates for the comparison chart
+    comp_df = filtered_df.copy()
+    comp_df['date_str'] = comp_df['date'].dt.strftime('%Y-%m-%d')
+    
     # Add forest cover line
     fig2.add_trace(
         go.Scatter(
-            x=filtered_df['date'],
-            y=filtered_df['forest_cover'],
+            x=comp_df['date_str'],
+            y=comp_df['forest_cover'],
             name="Forest Cover",
             line=dict(color="#2e7d32", width=3),
             mode='lines',
@@ -318,8 +326,8 @@ def time_series_analysis():
     # Add urban expansion line
     fig2.add_trace(
         go.Scatter(
-            x=filtered_df['date'],
-            y=filtered_df['urban_expansion'],
+            x=comp_df['date_str'],
+            y=comp_df['urban_expansion'],
             name="Urban Expansion",
             line=dict(color="#d32f2f", width=3),
             mode='lines',
@@ -429,10 +437,10 @@ def time_series_analysis():
     # Create the projection chart
     fig4 = go.Figure()
     
-    # Add historical data
+    # Add historical data - convert dates to strings to avoid timestamp arithmetic issues
     fig4.add_trace(
         go.Scatter(
-            x=df['date'],
+            x=df['date'].dt.strftime('%Y-%m-%d'),
             y=df['forest_cover'],
             name="Historical Data",
             line=dict(color="#2e7d32", width=3),
@@ -440,10 +448,10 @@ def time_series_analysis():
         )
     )
     
-    # Add projection
+    # Add projection - convert dates to strings to avoid timestamp arithmetic issues
     fig4.add_trace(
         go.Scatter(
-            x=projection_df['date'],
+            x=projection_df['date'].dt.strftime('%Y-%m-%d'),
             y=projection_df['forest_cover'],
             name="Projected Data",
             line=dict(color="#ff9800", width=3, dash="dot"),
@@ -452,8 +460,9 @@ def time_series_analysis():
     )
     
     # Highlight the current year
+    # Convert timestamp to string to avoid arithmetic operations on Timestamp objects
     fig4.add_vline(
-        x=last_date, 
+        x=last_date.strftime('%Y-%m-%d'), 
         line_dash="dash", 
         line_color="rgba(0, 0, 0, 0.5)",
         annotation_text="Current",
