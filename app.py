@@ -287,41 +287,102 @@ create_header()
 # Navigation section with icon - using header for cleaner look
 st.sidebar.title("🧭 Navigation")
 
-# Organized navigation with sections and icons
-options = [
-    "Upload Satellite Image", 
-    "Analysis Results", 
-    "Time-lapse View", 
-    "Real-Time Monitoring", 
-    "Statistics & Metrics", 
-    "Time-Series Analysis", 
-    "Download Reports", 
+# Main sections with Dashboard as a separate option
+main_sections = [
+    "Dashboard",
+    "Upload & Analysis",
+    "Reports & Monitoring",
     "Take Action"
 ]
 
-# Create formatted options with icons
-formatted_options = [
-    "📤 Upload Satellite Image",
-    "🔍 Analysis Results",
-    "⏱️ Time-lapse View",
-    "🔴 Real-Time Monitoring",
-    "📊 Statistics & Metrics",
-    "📈 Time-Series Analysis",
-    "📁 Download Reports",
-    "🌱 Take Action"
+# Select the main section first
+selected_main_section = st.sidebar.selectbox(
+    "Main Sections",
+    main_sections,
+    index=0
+)
+
+# Define subsections for each main section
+dashboard_options = [
+    "Overview Dashboard",
+    "Statistics & Metrics",
+    "Time-Series Analysis"
 ]
 
-# Create a dictionary to map formatted options back to original options
-option_map = {formatted: original for formatted, original in zip(formatted_options, options)}
+upload_analysis_options = [
+    "Upload Satellite Image",
+    "Analysis Results"
+]
 
-# Display radio buttons with formatted options
+reports_monitoring_options = [
+    "Real-Time Monitoring",
+    "Time-lapse View",
+    "Download Reports"
+]
+
+action_options = [
+    "Take Action"
+]
+
+# Dictionary to get the appropriate options based on the selected main section
+section_options = {
+    "Dashboard": dashboard_options,
+    "Upload & Analysis": upload_analysis_options,
+    "Reports & Monitoring": reports_monitoring_options,
+    "Take Action": action_options
+}
+
+# Icons for each subsection
+all_options_with_icons = {
+    "Overview Dashboard": "📊 Overview Dashboard",
+    "Upload Satellite Image": "📤 Upload Satellite Image",
+    "Analysis Results": "🔍 Analysis Results",
+    "Time-lapse View": "⏱️ Time-lapse View",
+    "Real-Time Monitoring": "🔴 Real-Time Monitoring",
+    "Statistics & Metrics": "📈 Statistics & Metrics",
+    "Time-Series Analysis": "📉 Time-Series Analysis",
+    "Download Reports": "📁 Download Reports",
+    "Take Action": "🌱 Take Action"
+}
+
+# Get options for the selected main section
+current_options = section_options[selected_main_section]
+
+# Convert options to their formatted versions with icons
+formatted_options = [all_options_with_icons[option] for option in current_options]
+
+# Create a dictionary to map formatted options back to original options
+option_map = {formatted: original.split(" ")[-1] for original, formatted in all_options_with_icons.items()}
+
+# Display radio buttons with formatted options for the subsection
 selected_formatted = st.sidebar.radio(
-    "Dashboard Sections",
+    f"{selected_main_section} Options",
     formatted_options
 )
 
 # Map the selected formatted option back to the original option
-page = option_map[selected_formatted]
+subsection = option_map[selected_formatted]
+
+# Define the actual page to display
+if selected_main_section == "Dashboard":
+    if subsection == "Dashboard":
+        page = "Overview Dashboard"
+    else:
+        page = subsection
+elif selected_main_section == "Upload & Analysis":
+    if subsection == "Image":
+        page = "Upload Satellite Image"
+    else:
+        page = "Analysis Results"
+elif selected_main_section == "Reports & Monitoring":
+    if subsection == "Monitoring":
+        page = "Real-Time Monitoring"
+    elif subsection == "View":
+        page = "Time-lapse View"
+    else:
+        page = "Download Reports"
+else:  # Take Action
+    page = "Take Action"
 
 st.sidebar.markdown("---")
 
@@ -397,7 +458,126 @@ if location != st.session_state.selected_location:
     st.rerun()
 
 # Main content based on selected page
-if page == "Upload Satellite Image":
+if page == "Overview Dashboard":
+    # Create a dashboard overview combining key elements from other pages
+    st.header("Deforestation Analysis Dashboard")
+    
+    # Show brief stats in cards at the top
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div style="padding: 20px; border-radius: 10px; background-color: rgba(76, 175, 80, 0.1); border-left: 4px solid #4CAF50;">
+            <h3 style="margin-top: 0;">Global Status</h3>
+            <div style="font-size: 24px; font-weight: bold; color: #4CAF50;">12.2 million</div>
+            <div>hectares of tropical forest lost in 2024</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div style="padding: 20px; border-radius: 10px; background-color: rgba(244, 67, 54, 0.1); border-left: 4px solid #F44336;">
+            <h3 style="margin-top: 0;">Alert Status</h3>
+            <div style="font-size: 24px; font-weight: bold; color: #F44336;">132</div>
+            <div>active deforestation alerts this week</div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div style="padding: 20px; border-radius: 10px; background-color: rgba(33, 150, 243, 0.1); border-left: 4px solid #2196F3;">
+            <h3 style="margin-top: 0;">Current Location</h3>
+            <div style="font-size: 24px; font-weight: bold; color: #2196F3;">{}</div>
+            <div>selected for monitoring</div>
+        </div>
+        """.format(st.session_state.selected_location), unsafe_allow_html=True)
+    
+    # Brief introduction section
+    st.markdown("""
+    ### Welcome to the Deforestation Analysis Dashboard
+    This interactive platform provides comprehensive tools to monitor, analyze, and understand deforestation patterns 
+    using satellite imagery and advanced analytics. Select different sections from the navigation menu to explore 
+    specific features and analysis tools.
+    """)
+    
+    # Display key visualizations
+    dashboard_tabs = st.tabs(["Map View", "Recent Statistics", "Quick Upload"])
+    
+    with dashboard_tabs[0]:
+        st.subheader("Interactive Map View")
+        st.info("Interactive map showing deforestation hotspots in the selected region.")
+        
+        # Import and use functions from other components for the map view
+        from data.sample_coordinates import get_coordinates_for_location
+        from utils.mapping import create_map_with_deforestation
+        
+        coordinates = get_coordinates_for_location(st.session_state.selected_location)
+        map_view = create_map_with_deforestation(
+            center_lat=coordinates["lat"],
+            center_lon=coordinates["lon"],
+            zoom=coordinates["zoom"],
+            deforested_areas=st.session_state.deforested_areas if 'deforested_areas' in st.session_state else None
+        )
+        
+        from streamlit_folium import folium_static
+        folium_static(map_view)
+        
+    with dashboard_tabs[1]:
+        st.subheader("Recent Deforestation Statistics")
+        
+        # Sample statistic visualization
+        from utils.visualization import create_comparison_chart
+        
+        # Create a sample comparison chart
+        locations = ["Amazon Rainforest", "Borneo", "Congo Basin"]
+        comparison_chart = create_comparison_chart(locations)
+        st.plotly_chart(comparison_chart, use_container_width=True)
+        
+        # Show a brief metrics table
+        import pandas as pd
+        metrics_data = {
+            "Region": ["Amazon", "Borneo", "Congo Basin", "Global"],
+            "Forest Loss (hectares)": ["1.5M", "940K", "790K", "12.2M"],
+            "% Change (YoY)": ["-2.3%", "+1.7%", "-0.5%", "-0.8%"],
+            "Primary Cause": ["Agriculture", "Palm Oil", "Logging", "Mixed"]
+        }
+        metrics_df = pd.DataFrame(metrics_data)
+        st.dataframe(metrics_df, use_container_width=True)
+        
+    with dashboard_tabs[2]:
+        st.subheader("Quick Satellite Image Upload")
+        st.write("Upload a satellite image for quick analysis, or navigate to the full Upload & Analysis section for detailed comparison.")
+        
+        quick_upload = st.file_uploader(
+            "Choose a satellite image for quick analysis",
+            type=["jpg", "jpeg", "png"],
+            key="dashboard_uploader"
+        )
+        
+        if quick_upload is not None:
+            from PIL import Image
+            
+            try:
+                # Read and display the uploaded image
+                image = Image.open(quick_upload)
+                st.image(image, caption="Uploaded Image", use_container_width=True)
+                
+                # Add a button to redirect to the full analysis page
+                if st.button("Proceed to Full Analysis"):
+                    st.session_state.uploaded_image = image
+                    # We'll use the session state to track that we want to switch to the upload section
+                    st.session_state.redirect_to_upload = True
+                    st.rerun()
+            except Exception as e:
+                st.error(f"Error processing image: {str(e)}")
+    
+    # Check if we need to redirect to the upload section
+    if 'redirect_to_upload' in st.session_state and st.session_state.redirect_to_upload:
+        # Clear the redirect flag
+        st.session_state.redirect_to_upload = False
+        # This would normally redirect to the upload section
+
+elif page == "Upload Satellite Image":
     upload_section()
     
 elif page == "Analysis Results":
