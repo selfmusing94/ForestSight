@@ -9,8 +9,6 @@ from utils.mapping import create_map_with_deforestation
 def upload_section():
     """Create the upload section for satellite images with before and after comparison."""
     
-    st.header("Upload Satellite Imagery")
-    
     # Check if we're in dark mode
     is_dark_mode = 'theme' in st.session_state and st.session_state.theme == 'dark'
     
@@ -27,16 +25,73 @@ def upload_section():
         </style>
         """, unsafe_allow_html=True)
     
-    # Introduction text
-    st.write(
-        """
-        Upload 'before' and 'after' satellite imagery to analyze deforestation patterns.
-        The system will process both images and highlight areas where deforestation has been detected between the two timepoints.
+    # Use beautiful component styling from the header CSS
+    st.markdown("""
+    <div class="component-section">
+        <h2 class="component-title">Upload Satellite Imagery</h2>
+        <p>Upload 'before' and 'after' satellite imagery to analyze deforestation patterns.
+        The system will process both images and highlight areas where deforestation has been detected between the two timepoints.</p>
         
-        **Supported formats:** .jpg, .jpeg, .png
-        **Recommended resolution:** 1000x1000 pixels or higher
-        """
-    )
+        <p><strong>Supported formats:</strong> .jpg, .jpeg, .png<br>
+        <strong>Recommended resolution:</strong> 1000x1000 pixels or higher</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Add custom CSS for radio buttons
+    st.markdown("""
+    <style>
+    div[role="radiogroup"] {
+        margin: 1rem 0;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    div[data-testid="stRadio"] > label {
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        color: #2e7d32;
+    }
+    div[data-testid="stHorizontalBlock"] {
+        background-color: rgba(76, 175, 80, 0.05); 
+        padding: 1rem;
+        border-radius: 10px;
+        margin-bottom: 0.5rem;
+    }
+    /* Dark mode styles */
+    body.dark div[data-testid="stHorizontalBlock"] {
+        background-color: rgba(76, 175, 80, 0.1);
+    }
+    body.dark div[data-testid="stRadio"] > label {
+        color: #4caf50;
+    }
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        height: 40px;
+        border-radius: 4px 4px 0 0;
+        padding: 10px 16px;
+        background-color: #f5f5f5;
+        border: none !important;
+        color: #555;
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: #e8f5e9 !important;
+        color: #2e7d32 !important;
+        font-weight: 600;
+    }
+    /* Dark mode tab styling */
+    body.dark .stTabs [data-baseweb="tab"] {
+        background-color: #333;
+        color: #ccc;
+    }
+    body.dark .stTabs [aria-selected="true"] {
+        background-color: rgba(76, 175, 80, 0.3) !important;
+        color: #4caf50 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
     
     # Upload method selection
     upload_method = st.radio(

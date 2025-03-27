@@ -5,18 +5,92 @@ from streamlit_extras.badges import badge
 
 def create_header(show_dashboard_elements=False):
     """
-    Create the header section of the dashboard.
+    Create the header section.
     
     Parameters:
     -----------
-    show_dashboard_elements : bool, optional
+    show_dashboard_elements : bool
         If True, show the full dashboard header with statistics, cards, etc.
-        If False, show only the minimal header (for non-dashboard pages).
+        If False, don't show any header at all for cleaner pages.
     """
     
-    # Apply advanced styling to the header with animations
+    # Apply global styling for both dashboard and regular pages
     st.markdown("""
     <style>
+    /* Global animations */
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+    
+    @keyframes slideDown {
+        from {opacity: 0; transform: translateY(-30px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    
+    @keyframes fadeInRight {
+        from {opacity: 0; transform: translateX(20px);}
+        to {opacity: 0.9; transform: translateX(0);}
+    }
+    
+    @keyframes bounceIn {
+        0% { transform: scale(0.3); opacity: 0; }
+        40% { transform: scale(1.1); }
+        80% { transform: scale(0.9); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    
+    @keyframes scaleIn {
+        from {transform: scale(0.9); opacity: 0;}
+        to {transform: scale(1); opacity: 1;}
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    
+    @keyframes fadeInUp {
+        from {opacity: 0; transform: translateY(10px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    
+    /* Improved section styling */
+    .section-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-top: 4px solid #4CAF50;
+        animation: fadeIn 0.6s ease-out;
+    }
+    
+    /* Dark mode section container */
+    body.dark .section-container,
+    .dark-mode-active .section-container {
+        background-color: #222;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Improved section headers */
+    .section-header {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2e7d32;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid rgba(76, 175, 80, 0.2);
+        padding-bottom: 0.5rem;
+    }
+    
+    /* Dark mode section header */
+    body.dark .section-header,
+    .dark-mode-active .section-header {
+        color: #4caf50;
+        border-bottom-color: rgba(76, 175, 80, 0.3);
+    }
+    
+    /* Dashboard-specific styles */
     .header-container {
         display: flex;
         align-items: center;
@@ -49,39 +123,12 @@ def create_header(show_dashboard_elements=False):
         background-size: 200% 100%;
     }
     
-    @keyframes shimmer {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
-    }
-    
-    @keyframes slideDown {
-        from {opacity: 0; transform: translateY(-30px);}
-        to {opacity: 1; transform: translateY(0);}
-    }
-    
-    @keyframes fadeIn {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-    
-    @keyframes scaleIn {
-        from {transform: scale(0.9); opacity: 0;}
-        to {transform: scale(1); opacity: 1;}
-    }
-    
     .logo-container {
         font-size: 3.8em;
         margin-right: 1.5rem;
         text-align: center;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
         animation: bounceIn 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-    }
-    
-    @keyframes bounceIn {
-        0% { transform: scale(0.3); opacity: 0; }
-        40% { transform: scale(1.1); }
-        80% { transform: scale(0.9); }
-        100% { transform: scale(1); opacity: 1; }
     }
     
     .text-container h1 {
@@ -118,11 +165,6 @@ def create_header(show_dashboard_elements=False):
         color: #e0e0e0 !important;
     }
     
-    @keyframes fadeInRight {
-        from {opacity: 0; transform: translateX(20px);}
-        to {opacity: 0.9; transform: translateX(0);}
-    }
-    
     .badge-container {
         display: flex;
         flex-wrap: wrap;
@@ -131,11 +173,6 @@ def create_header(show_dashboard_elements=False):
         animation: fadeInUp 0.8s ease-out forwards;
         opacity: 0;
         animation-delay: 0.6s;
-    }
-    
-    @keyframes fadeInUp {
-        from {opacity: 0; transform: translateY(10px);}
-        to {opacity: 1; transform: translateY(0);}
     }
     
     .badge {
@@ -172,7 +209,6 @@ def create_header(show_dashboard_elements=False):
         box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
     }
     
-    /* Dashboard-specific styles */
     .stats-container {
         display: flex;
         justify-content: space-between;
@@ -184,7 +220,7 @@ def create_header(show_dashboard_elements=False):
     
     .stat-item {
         text-align: center;
-        padding: 1rem;
+        padding: 1.2rem;
         border-radius: 10px;
         background-color: rgba(46, 125, 50, 0.05);
         transition: all 0.3s ease;
@@ -231,17 +267,18 @@ def create_header(show_dashboard_elements=False):
     .feature-cards {
         display: flex;
         gap: 1rem;
-        margin-top: 1rem;
+        margin-top: 1.5rem;
     }
     
     .feature-card {
         border-radius: 10px;
-        padding: 1rem;
+        padding: 1.2rem;
         background-color: white;
         box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         transition: all 0.3s ease;
         animation: scaleIn 0.8s ease-out forwards;
         opacity: 0;
+        flex: 1;
     }
     
     /* Dark mode support for feature cards */
@@ -324,64 +361,76 @@ def create_header(show_dashboard_elements=False):
         transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1);
         width: 0;
     }
+    
+    /* Add beautiful card styling */
+    .card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+    
+    /* Dark mode card */
+    body.dark .card,
+    .dark-mode-active .card {
+        background-color: #1e1e1e;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    /* Component sections styling */
+    .component-section {
+        padding: 1.5rem;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        border-left: 3px solid #4caf50;
+    }
+    
+    body.dark .component-section,
+    .dark-mode-active .component-section {
+        background-color: rgba(30, 30, 30, 0.5);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Beautiful section headers */
+    .component-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #2e7d32;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+    }
+    
+    body.dark .component-title,
+    .dark-mode-active .component-title {
+        color: #4caf50;
+        border-color: rgba(76, 175, 80, 0.3);
+    }
     </style>
     """, unsafe_allow_html=True)
     
-    # Create the basic header - this is shown on all pages
-    st.markdown("""
-    <div class="header-container">
-        <div class="logo-container">🌳</div>
-        <div class="text-container">
-            <h1>Deforestation Analysis Dashboard</h1>
-            <p>This interactive platform helps visualize and analyze deforestation patterns using satellite imagery and advanced data visualization.</p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Add additional dark mode support styles
-    st.markdown("""
-    <style>
-    .feature-card-title {
-        margin: 0; 
-        color: #2e7d32; 
-        font-size: 1.2rem;
-    }
-    
-    .feature-card-text {
-        margin: 0.5rem 0 0 0; 
-        font-size: 0.9rem; 
-        color: #555;
-    }
-    
-    /* Dark mode styles */
-    body.dark .feature-card-title,
-    .dark-mode-active .feature-card-title,
-    .dark .feature-card-title {
-        color: #4caf50 !important;
-    }
-    
-    body.dark .feature-card-text,
-    .dark-mode-active .feature-card-text,
-    .dark .feature-card-text {
-        color: white !important;
-    }
-    
-    body.dark .stat-label,
-    .dark-mode-active .stat-label,
-    .dark .stat-label {
-        color: #e0e0e0 !important;
-    }
-    
-    body.dark .progress-label,
-    .dark-mode-active .progress-label,
-    .dark .progress-label {
-        color: #e0e0e0 !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    # Only show these elements on the dashboard page
+    # We only show header elements if explicitly requested (dashboard page only)
     if show_dashboard_elements:
+        # Create enhanced header with HTML for better styling and animations
+        st.markdown("""
+        <div class="header-container">
+            <div class="logo-container">🌳</div>
+            <div class="text-container">
+                <h1>Deforestation Analysis Dashboard</h1>
+                <p>This interactive platform helps visualize and analyze deforestation patterns using satellite imagery and advanced data visualization.</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
         # Add badges/tags for dashboard only
         st.markdown("""
         <div class="badge-container" style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.6rem;">
