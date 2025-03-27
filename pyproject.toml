@@ -11,4 +11,6 @@ dependencies = [
     "numpy>=2.2.4",
     "plotly>=6.0.1",
     "pillow>=11.1.0",
+    "streamlit-extras>=0.6.0",
+    "components>=0.0.1a0",
 ]

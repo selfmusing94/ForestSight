@@ -2,6 +2,13 @@ import streamlit as st
 import os
 import numpy as np
 from datetime import datetime
+import plotly.express as px
+import plotly.graph_objects as go
+from streamlit_extras.app_logo import add_logo
+from streamlit_extras.colored_header import colored_header
+from streamlit_extras.switch_page_button import switch_page
+from streamlit_extras.card import card
+from streamlit_extras.stylable_container import stylable_container
 
 # Import components
 from components.header import create_header
@@ -9,6 +16,7 @@ from components.upload import upload_section
 from components.analysis import analysis_section
 from components.timelapse import timelapse_section
 from components.statistics import statistics_section
+from components.time_series import time_series_analysis
 
 # Set page configuration
 st.set_page_config(
@@ -31,6 +39,79 @@ if 'selected_location' not in st.session_state:
     st.session_state.selected_location = "Amazon Rainforest"
 if 'timelapse_images' not in st.session_state:
     st.session_state.timelapse_images = {}
+if 'theme' not in st.session_state:
+    st.session_state.theme = "light"
+if 'time_series_data' not in st.session_state:
+    st.session_state.time_series_data = None
+if 'forest_loss_stats' not in st.session_state:
+    st.session_state.forest_loss_stats = {}
+
+# Function to toggle theme
+def toggle_theme():
+    if st.session_state.theme == "light":
+        st.session_state.theme = "dark"
+    else:
+        st.session_state.theme = "light"
+    
+    # Apply theme
+    if st.session_state.theme == "dark":
+        # Dark theme
+        st.markdown("""
+        <style>
+        .main {
+            background-color: #0e1117;
+            color: white;
+        }
+        .stApp {
+            background-color: #0e1117;
+        }
+        .css-1d391kg {
+            background-color: #262730;
+        }
+        .st-bq {
+            background-color: #262730;
+        }
+        .css-1oe6wy4 {
+            background-color: #1f2229;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    else:
+        # Light theme (default)
+        st.markdown("""
+        <style>
+        .main {
+            background-color: white;
+            color: #262730;
+        }
+        .stApp {
+            background-color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+# Apply current theme
+if st.session_state.theme == "dark":
+    st.markdown("""
+    <style>
+    .main {
+        background-color: #0e1117;
+        color: white;
+    }
+    .stApp {
+        background-color: #0e1117;
+    }
+    .css-1d391kg {
+        background-color: #262730;
+    }
+    .st-bq {
+        background-color: #262730;
+    }
+    .css-1oe6wy4 {
+        background-color: #1f2229;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
 # Create header
 create_header()
@@ -39,7 +120,7 @@ create_header()
 st.sidebar.title("Navigation")
 page = st.sidebar.radio(
     "Go to",
-    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Statistics & Metrics"]
+    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Statistics & Metrics", "Time-Series Analysis"]
 )
 
 st.sidebar.markdown("---")
@@ -49,6 +130,16 @@ st.sidebar.info(
     This dashboard visualizes deforestation using satellite imagery. 
     Upload an image or select a sample location to analyze deforestation patterns.
     """
+)
+
+st.sidebar.markdown("---")
+# Theme toggle
+st.sidebar.header("Appearance")
+theme_toggle = st.sidebar.button(
+    "Toggle Dark/Light Mode", 
+    on_click=toggle_theme,
+    key="theme_toggle",
+    help="Switch between dark and light mode"
 )
 
 st.sidebar.markdown("---")
@@ -78,6 +169,9 @@ elif page == "Time-lapse View":
     
 elif page == "Statistics & Metrics":
     statistics_section()
+    
+elif page == "Time-Series Analysis":
+    time_series_analysis()
 
 # Footer
 st.markdown("---")
