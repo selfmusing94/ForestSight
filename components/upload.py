@@ -25,76 +25,49 @@ def upload_section():
         </style>
         """, unsafe_allow_html=True)
     
-    # Add dark mode-specific JS to modify elements based on theme
-    st.markdown("""
-    <script>
-    // Check if dark mode is active
-    function isDarkMode() {
-        return document.body.classList.contains('dark') || 
-               document.documentElement.classList.contains('dark-mode-active');
-    }
-    
-    // Apply dark mode colors to format boxes
-    function updateColors() {
-        if (isDarkMode()) {
-            // Format boxes in dark mode
-            const formatBoxes = document.querySelectorAll('.component-section h4');
-            formatBoxes.forEach(el => {
-                el.style.color = '#4caf50';
-            });
-            
-            // Background color of format boxes
-            const formatContainers = document.querySelectorAll('.component-section [style*="background-color: rgba(76, 175, 80, 0.1)"]');
-            formatContainers.forEach(el => {
-                el.style.backgroundColor = 'rgba(76, 175, 80, 0.15)';
-            });
-            
-            // Format tags
-            const formatTags = document.querySelectorAll('.component-section [style*="background-color: rgba(76, 175, 80, 0.2)"]');
-            formatTags.forEach(el => {
-                el.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
-                el.style.color = '#e0e0e0';
-            });
-            
-            // Text color
-            const formatTexts = document.querySelectorAll('.component-section p');
-            formatTexts.forEach(el => {
-                el.style.color = '#e0e0e0';
-            });
-        }
-    }
-    
-    // Run when the page loads
-    document.addEventListener('DOMContentLoaded', updateColors);
-    
-    // Also run periodically to catch theme changes
-    setInterval(updateColors, 1000);
-    </script>
-    """, unsafe_allow_html=True)
-    
-    # Use beautiful component styling from the header CSS
+    # Use a cleaner approach with standard Streamlit components
     st.markdown("""
     <div class="component-section">
         <h2 class="component-title">Upload Satellite Imagery</h2>
         <p>Upload 'before' and 'after' satellite imagery to analyze deforestation patterns.
         The system will process both images and highlight areas where deforestation has been detected between the two timepoints.</p>
-        
-        <div style="margin-top: 1.2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-            <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1rem; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)';">
-                <h4 style="margin-top: 0; margin-bottom: 0.7rem; color: #2e7d32; font-size: 1rem;">📁 Supported Formats</h4>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">.jpg</span>
-                    <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">.jpeg</span>
-                    <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">.png</span>
-                </div>
-            </div>
-            <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1rem; border-radius: 8px; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.05);" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 6px rgba(0,0,0,0.05)';">
-                <h4 style="margin-top: 0; margin-bottom: 0.7rem; color: #2e7d32; font-size: 1rem;">🔍 Recommended Resolution</h4>
-                <p style="margin: 0; font-size: 0.9rem;">1000×1000 pixels or higher for optimal analysis results</p>
-            </div>
-        </div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Create a cleaner format display with standard Streamlit components
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("""
+        <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1rem; border-radius: 8px; 
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.05); height: 100%;">
+            <h4 style="margin-top: 0; margin-bottom: 0.7rem; color: #2e7d32; font-size: 1rem;">
+                📁 Supported Formats
+            </h4>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+            <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); 
+                        padding: 6px 12px; border-radius: 4px; font-size: 0.85rem;">.jpg</span>
+            <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); 
+                        padding: 6px 12px; border-radius: 4px; font-size: 0.85rem;">.jpeg</span>
+            <span style="display: inline-block; background-color: rgba(76, 175, 80, 0.2); 
+                        padding: 6px 12px; border-radius: 4px; font-size: 0.85rem;">.png</span>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div style="background-color: rgba(76, 175, 80, 0.1); padding: 1rem; border-radius: 8px; 
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.05); height: 100%;">
+            <h4 style="margin-top: 0; margin-bottom: 0.7rem; color: #2e7d32; font-size: 1rem;">
+                🔍 Recommended Resolution
+            </h4>
+            <p style="margin: 0; font-size: 0.9rem;">
+                1000×1000 pixels or higher for optimal analysis results
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Add custom CSS for radio buttons
     st.markdown("""
