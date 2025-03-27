@@ -237,19 +237,24 @@ def create_header():
     
     /* Dark mode support for feature cards */
     .dark-mode-active .feature-card,
-    body.dark .feature-card {
+    body.dark .feature-card,
+    .dark .feature-card {
         background-color: #1e1e1e !important;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
     }
     
     .dark-mode-active .feature-card h3,
-    body.dark .feature-card h3 {
+    body.dark .feature-card h3,
+    .dark .feature-card h3,
+    .dark .feature-card .feature-card-title {
         color: #4caf50 !important;
     }
     
     .dark-mode-active .feature-card p,
-    body.dark .feature-card p {
-        color: #e0e0e0 !important;
+    body.dark .feature-card p,
+    .dark .feature-card p,
+    .dark .feature-card .feature-card-text {
+        color: white !important;
     }
     
     .feature-card:nth-child(1) {
@@ -391,22 +396,26 @@ def create_header():
     
     /* Dark mode styles */
     body.dark .feature-card-title,
-    .dark-mode-active .feature-card-title {
+    .dark-mode-active .feature-card-title,
+    .dark .feature-card-title {
         color: #4caf50 !important;
     }
     
     body.dark .feature-card-text,
-    .dark-mode-active .feature-card-text {
-        color: #e0e0e0 !important;
+    .dark-mode-active .feature-card-text,
+    .dark .feature-card-text {
+        color: white !important;
     }
     
     body.dark .stat-label,
-    .dark-mode-active .stat-label {
+    .dark-mode-active .stat-label,
+    .dark .stat-label {
         color: #e0e0e0 !important;
     }
     
     body.dark .progress-label,
-    .dark-mode-active .progress-label {
+    .dark-mode-active .progress-label,
+    .dark .progress-label {
         color: #e0e0e0 !important;
     }
     </style>
