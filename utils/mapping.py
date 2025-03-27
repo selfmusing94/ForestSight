@@ -1,7 +1,8 @@
 import folium
 import random
-from folium.plugins import HeatMap
+from folium.plugins import HeatMap, MarkerCluster, MeasureControl, Draw, Fullscreen
 from data.sample_coordinates import get_coordinates_for_location
+from datetime import datetime, timedelta
 
 def create_map_with_deforestation(center_lat, center_lon, zoom, deforested_areas=None):
     """
@@ -181,3 +182,182 @@ def create_timelapse_map(location, years):
         maps.append(m)
     
     return maps
+
+def create_realtime_map(location, days_back=30):
+    """
+    Create an interactive map with real-time deforestation alerts.
+    
+    Parameters:
+    -----------
+    location : str
+        Name of the location
+    days_back : int
+        Number of days to look back for alerts
+        
+    Returns:
+    --------
+    folium.Map
+        An interactive Folium map with real-time alerts
+    """
+    # Get coordinates for selected location
+    coordinates = get_coordinates_for_location(location)
+    center_lat = coordinates['lat']
+    center_lon = coordinates['lon']
+    zoom = coordinates['zoom']
+    
+    # Create the base map
+    m = folium.Map(
+        location=[center_lat, center_lon],
+        zoom_start=zoom,
+        tiles="OpenStreetMap",
+        control_scale=True
+    )
+    
+    # Add satellite view as a layer
+    folium.TileLayer(
+        tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        attr='Esri',
+        name='Satellite',
+        overlay=False
+    ).add_to(m)
+    
+    # Add terrain view
+    folium.TileLayer(
+        tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}',
+        attr='Esri',
+        name='Terrain',
+        overlay=False
+    ).add_to(m)
+    
+    # Create marker clusters for alerts
+    marker_cluster = MarkerCluster(name="Deforestation Alerts").add_to(m)
+    
+    # Generate simulated alerts (in a real app, this would come from an API)
+    alerts = []
+    
+    # Number of alerts to generate
+    num_alerts = random.randint(5, 25)
+    
+    # Generate random alerts
+    for _ in range(num_alerts):
+        # Random date within the last days_back days
+        days_ago = random.randint(0, days_back)
+        alert_date = (datetime.now() - timedelta(days=days_ago)).strftime('%Y-%m-%d')
+        
+        # Random coordinates near the center
+        lat_offset = (random.random() - 0.5) * 0.5  # +/- 0.25 degrees
+        lon_offset = (random.random() - 0.5) * 0.5  # +/- 0.25 degrees
+        
+        # Random severity (1-5, with 5 being highest)
+        severity = random.randint(1, 5)
+        
+        # Random area affected (in hectares)
+        area = round(random.uniform(0.5, 20.0), 2)
+        
+        # Random confidence (50-100%)
+        confidence = random.randint(50, 100)
+        
+        alerts.append({
+            'date': alert_date,
+            'lat': center_lat + lat_offset,
+            'lon': center_lon + lon_offset,
+            'severity': severity,
+            'area_ha': area,
+            'confidence': confidence,
+            'status': random.choice(['Active', 'Verified', 'Under Investigation'])
+        })
+    
+    # Define severity colors
+    severity_colors = {
+        1: 'green',
+        2: 'blue',
+        3: 'orange',
+        4: 'darkred',
+        5: 'black'
+    }
+    
+    # Add alerts to the map
+    for i, alert in enumerate(alerts):
+        # Create popup content
+        popup_content = f"""
+        <div style="width: 200px;">
+            <h4>Deforestation Alert #{i+1}</h4>
+            <p><b>Date:</b> {alert['date']}</p>
+            <p><b>Severity:</b> {alert['severity']}/5</p>
+            <p><b>Area:</b> {alert['area_ha']} hectares</p>
+            <p><b>Confidence:</b> {alert['confidence']}%</p>
+            <p><b>Status:</b> {alert['status']}</p>
+        </div>
+        """
+        
+        # Create popup
+        popup = folium.Popup(popup_content, max_width=300)
+        
+        # Select marker color based on severity
+        color = severity_colors.get(alert['severity'], 'red')
+        
+        # Add marker
+        folium.Marker(
+            location=[alert['lat'], alert['lon']],
+            popup=popup,
+            icon=folium.Icon(color=color, icon="warning-sign", prefix="glyphicon"),
+            tooltip=f"Alert: {alert['date']}"
+        ).add_to(marker_cluster)
+        
+        # Add circle with radius proportional to area affected
+        folium.Circle(
+            location=[alert['lat'], alert['lon']],
+            radius=alert['area_ha'] * 50,  # Scale for visibility
+            color=color,
+            fill=True,
+            fill_opacity=0.4,
+            weight=2,
+            popup=f"Area: {alert['area_ha']} hectares"
+        ).add_to(m)
+    
+    # Add heat map
+    heat_data = []
+    for alert in alerts:
+        # Heat intensity based on severity and area
+        intensity = alert['severity'] * alert['area_ha']
+        heat_data.append([alert['lat'], alert['lon'], intensity])
+    
+    HeatMap(
+        heat_data,
+        radius=15,
+        gradient={0.4: 'blue', 0.65: 'lime', 0.9: 'yellow', 1.0: 'red'},
+        name="Alert Intensity",
+        min_opacity=0.5,
+        max_zoom=10
+    ).add_to(m)
+    
+    # Add drawing tools
+    Draw(
+        export=True,
+        position='topleft',
+        draw_options={
+            'polyline': True,
+            'polygon': True,
+            'rectangle': True,
+            'circle': True,
+            'marker': True,
+            'circlemarker': False
+        }
+    ).add_to(m)
+    
+    # Add measure tool
+    MeasureControl(
+        position='topleft',
+        primary_length_unit='kilometers',
+        secondary_length_unit='miles',
+        primary_area_unit='hectares',
+        secondary_area_unit='acres'
+    ).add_to(m)
+    
+    # Add fullscreen control
+    Fullscreen().add_to(m)
+    
+    # Add layer control
+    folium.LayerControl().add_to(m)
+    
+    return m, alerts

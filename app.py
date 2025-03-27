@@ -19,6 +19,7 @@ from components.statistics import statistics_section
 from components.time_series import time_series_analysis
 from components.download import download_section
 from components.action import action_section
+from components.realtime_mapping import realtime_mapping_section
 
 # Set page configuration
 st.set_page_config(
@@ -122,7 +123,7 @@ create_header()
 st.sidebar.title("Navigation")
 page = st.sidebar.radio(
     "Go to",
-    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Statistics & Metrics", 
+    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Real-Time Monitoring", "Statistics & Metrics", 
      "Time-Series Analysis", "Download Reports", "Take Action"]
 )
 
@@ -169,6 +170,9 @@ elif page == "Analysis Results":
     
 elif page == "Time-lapse View":
     timelapse_section()
+    
+elif page == "Real-Time Monitoring":
+    realtime_mapping_section()
     
 elif page == "Statistics & Metrics":
     statistics_section()
