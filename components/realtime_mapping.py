@@ -179,10 +179,10 @@ def create_alert_map(alerts_df, center_lat, center_lon, zoom=9):
         heat_data,
         radius=15,
         gradient={
-            0.4: 'blue', 
-            0.65: 'yellow', 
-            0.9: 'orange', 
-            1.0: 'red'
+            '0.4': 'blue', 
+            '0.65': 'yellow', 
+            '0.9': 'orange', 
+            '1.0': 'red'
         },
         name="Heat Map",
         min_opacity=0.5,
