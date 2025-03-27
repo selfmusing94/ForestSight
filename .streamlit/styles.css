@@ -171,9 +171,130 @@ html, body, [class*="css"] {
     background-color: rgba(46, 125, 50, 0.05);
 }
 
-/* Sidebar animation */
+/* Sidebar animation and enhanced styling */
 [data-testid="stSidebar"] {
     animation: slideInFromLeft 0.5s ease-out;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), 
+                      url('https://i.imgur.com/8yYlcAI.png');
+    background-size: cover;
+    background-position: center;
+    padding: 2rem 1.5rem;
+}
+
+/* Sidebar header styling */
+[data-testid="stSidebar"] h1, 
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #2e7d32 !important;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+[data-testid="stSidebar"] h1::after,
+[data-testid="stSidebar"] h2::after,
+[data-testid="stSidebar"] h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    height: 3px;
+    background: linear-gradient(90deg, #4caf50, transparent);
+}
+
+/* Sidebar navigation item styling */
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    padding: 0.85rem 1rem;
+    transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-left: 3px solid transparent;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4caf50;
+    transform: translateX(3px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+/* Active navigation item */
+[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] [aria-checked="true"] {
+    font-weight: 600;
+}
+
+[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] [aria-checked="true"] + div {
+    background-color: rgba(76, 175, 80, 0.15);
+    border-left: 3px solid #2e7d32;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Navigation icons and text alignment */
+[data-testid="stSidebar"] [role="radiogroup"] label div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Navigation text style */
+[data-testid="stSidebar"] [role="radiogroup"] label span p {
+    margin: 0;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+}
+
+/* Sidebar info styling */
+[data-testid="stSidebar"] [data-testid="stInfo"] {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-left: 4px solid #4caf50;
+    margin: 1rem 0;
+    padding: 0.75rem;
+}
+
+/* Sidebar divider */
+[data-testid="stSidebar"] hr {
+    margin: 1.5rem 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, #4caf50, transparent);
+}
+
+/* Sidebar section styling */
+.sidebar-section {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-left: 4px solid #4caf50;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.dark .sidebar-section {
+    background-color: rgba(40, 40, 40, 0.7);
+    border-left: 4px solid #4caf50;
+}
+
+/* Sidebar section header */
+.sidebar-section-header {
+    margin-bottom: 0.75rem;
+}
+
+/* Emoji icon styling in sidebar */
+[data-testid="stSidebar"] h1:first-child, 
+[data-testid="stSidebar"] h2:first-child,
+[data-testid="stSidebar"] h3:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 /* Call to action element */
@@ -292,9 +413,47 @@ html, body, [class*="css"] {
     color: white !important;
 }
 
-/* Sidebar specific fixes */
+/* Sidebar specific fixes for dark mode */
 .dark [data-testid="stSidebar"] {
     background-color: #1e1e1e !important;
+    color: white !important;
+    background-image: linear-gradient(rgba(30, 30, 30, 0.92), rgba(30, 30, 30, 0.92)), 
+                      url('https://i.imgur.com/8yYlcAI.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border-right: 1px solid #333333 !important;
+}
+
+/* Dark mode sidebar headers */
+.dark [data-testid="stSidebar"] h1::after,
+.dark [data-testid="stSidebar"] h2::after,
+.dark [data-testid="stSidebar"] h3::after {
+    background: linear-gradient(90deg, #4caf50, transparent) !important;
+}
+
+.dark [data-testid="stSidebar"] h1,
+.dark [data-testid="stSidebar"] h2,
+.dark [data-testid="stSidebar"] h3 {
+    color: #4caf50 !important;
+}
+
+/* Dark mode sidebar navigation items */
+.dark [data-testid="stSidebar"] [role="radiogroup"] label {
+    background-color: rgba(40, 40, 40, 0.7) !important;
+    margin-bottom: 0.5rem !important;
+    border-radius: 8px !important;
+    border-left: 3px solid transparent !important;
+}
+
+.dark [data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background-color: rgba(76, 175, 80, 0.15) !important;
+    border-left: 3px solid #4caf50 !important;
+}
+
+/* Dark mode sidebar info boxes */
+.dark [data-testid="stSidebar"] [data-testid="stInfo"] {
+    background-color: rgba(40, 40, 40, 0.7) !important;
+    border-left: 4px solid #4caf50 !important;
     color: white !important;
 }
 

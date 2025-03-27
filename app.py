@@ -283,39 +283,115 @@ else:
 # Create header
 create_header()
 
-# Sidebar navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.radio(
-    "Go to",
-    ["Upload Satellite Image", "Analysis Results", "Time-lapse View", "Real-Time Monitoring", "Statistics & Metrics", 
-     "Time-Series Analysis", "Download Reports", "Take Action"]
+# Enhanced Sidebar with better organization
+# Navigation section with icon
+st.sidebar.markdown('<div class="sidebar-section-header">', unsafe_allow_html=True)
+st.sidebar.title("🧭 Navigation")
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
+# Organized navigation with sections and icons
+options = [
+    "Upload Satellite Image", 
+    "Analysis Results", 
+    "Time-lapse View", 
+    "Real-Time Monitoring", 
+    "Statistics & Metrics", 
+    "Time-Series Analysis", 
+    "Download Reports", 
+    "Take Action"
+]
+
+# Create formatted options with icons
+formatted_options = [
+    "📤 Upload Satellite Image",
+    "🔍 Analysis Results",
+    "⏱️ Time-lapse View",
+    "🔴 Real-Time Monitoring",
+    "📊 Statistics & Metrics",
+    "📈 Time-Series Analysis",
+    "📁 Download Reports",
+    "🌱 Take Action"
+]
+
+# Create a dictionary to map formatted options back to original options
+option_map = {formatted: original for formatted, original in zip(formatted_options, options)}
+
+# Display radio buttons with formatted options
+selected_formatted = st.sidebar.radio(
+    "Dashboard Sections",
+    formatted_options
 )
 
-st.sidebar.markdown("---")
-st.sidebar.header("About")
-st.sidebar.info(
-    """
-    This dashboard visualizes deforestation using satellite imagery. 
-    Upload an image or select a sample location to analyze deforestation patterns.
-    """
-)
+# Map the selected formatted option back to the original option
+page = option_map[selected_formatted]
 
 st.sidebar.markdown("---")
-# Theme toggle
-st.sidebar.header("Appearance")
+
+# About section with improved styling
+st.sidebar.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+st.sidebar.header("🌍 About")
+st.sidebar.markdown(
+    """
+    This dashboard visualizes deforestation using satellite imagery and advanced analytics. 
+    
+    🔍 Upload your own satellite imagery or explore our sample locations.
+    
+    📊 Analyze patterns, view statistics, and monitor changes over time.
+    """
+)
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
+
+st.sidebar.markdown("---")
+
+# Appearance section
+st.sidebar.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+st.sidebar.header("🎨 Appearance")
+current_theme = "Dark" if st.session_state.theme == "dark" else "Light"
+st.sidebar.markdown(f"**Current theme:** {current_theme}")
 theme_toggle = st.sidebar.button(
-    "Toggle Dark/Light Mode", 
+    f"Switch to {'Light' if current_theme == 'Dark' else 'Dark'} Mode", 
     on_click=toggle_theme,
     key="theme_toggle",
     help="Switch between dark and light mode"
 )
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
-st.sidebar.header("Sample Locations")
+
+# Sample locations section with enhanced information
+st.sidebar.markdown('<div class="sidebar-section">', unsafe_allow_html=True)
+st.sidebar.header("🗺️ Sample Locations")
 location = st.sidebar.selectbox(
-    "Select a region",
+    "Select a region to analyze",
     ["Amazon Rainforest", "Borneo", "Congo Basin", "Custom Upload"]
 )
+
+# Add detailed information about the selected location
+if location == "Amazon Rainforest":
+    st.sidebar.markdown("**Amazon Rainforest**: The largest tropical rainforest in the world, spanning 9 countries.")
+    st.sidebar.markdown("🌧️ **Annual Rainfall**: 2,000-3,000 mm")
+    st.sidebar.markdown("🌳 **Tree Species**: 16,000+")
+    st.sidebar.markdown("🔥 **Deforestation Rate**: 0.9% annually")
+elif location == "Borneo":
+    st.sidebar.markdown("**Borneo**: The third-largest island in the world with ancient rainforests.")
+    st.sidebar.markdown("🌧️ **Annual Rainfall**: 2,500-4,000 mm")
+    st.sidebar.markdown("🦧 **Endemic Species**: 222 mammals")
+    st.sidebar.markdown("🔥 **Deforestation Rate**: 1.3% annually")
+elif location == "Congo Basin":
+    st.sidebar.markdown("**Congo Basin**: Africa's largest contiguous forest and the second-largest tropical rainforest globally.")
+    st.sidebar.markdown("🌧️ **Annual Rainfall**: 1,700-2,200 mm")
+    st.sidebar.markdown("🌳 **Area**: 2 million square kilometers")
+    st.sidebar.markdown("🔥 **Deforestation Rate**: 0.3% annually")
+elif location == "Custom Upload":
+    st.sidebar.markdown("**Custom Upload**: Analyze your own satellite imagery.")
+    st.sidebar.markdown("📤 Upload satellite imagery in the Upload section")
+    st.sidebar.markdown("⚙️ Our AI will process and analyze your data")
+    st.sidebar.markdown("📊 View detailed deforestation metrics and visualization")
+
+# Add a small note about data sources
+st.sidebar.markdown("---")
+st.sidebar.markdown("<small>*Data reflects most recent available statistics. Sources include global forest monitoring agencies and satellite data aggregators.</small>", unsafe_allow_html=True)
+st.sidebar.markdown('</div>', unsafe_allow_html=True)
 
 if location != st.session_state.selected_location:
     st.session_state.selected_location = location
