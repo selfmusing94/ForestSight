@@ -103,10 +103,29 @@ if st.session_state.theme == "dark":
     [data-testid="stSidebar"] h1, 
     [data-testid="stSidebar"] h2, 
     [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4,
+    [data-testid="stSidebar"] h5,
+    [data-testid="stSidebar"] h6,
     [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] div,
+    [data-testid="stSidebar"] small,
     [data-testid="stSidebar"] [data-testid="stMarkdown"],
     [data-testid="stSidebar"] [role="radiogroup"] label span p {
         color: white !important;
+    }
+    
+    /* Fix sidebar selectbox */
+    [data-testid="stSidebar"] .stSelectbox [data-baseweb="select"] > div:first-child {
+        background-color: #2b2b2b !important;
+        color: white !important;
+    }
+    
+    /* Fix sidebar button */
+    [data-testid="stSidebar"] button {
+        color: white !important;
+        background-color: #4caf50 !important;
     }
     
     /* Navigation and radio buttons */
