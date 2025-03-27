@@ -242,6 +242,7 @@ html, body, [class*="css"] {
 .dark .dashboard-section {
     background-color: rgba(30, 30, 30, 0.6);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 .dark [data-testid="stFileUploader"] {
@@ -250,6 +251,53 @@ html, body, [class*="css"] {
 
 .dark [data-testid="stFileUploader"]:hover {
     background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* Additional dark mode improvements */
+[data-testid="stSidebar"][aria-expanded="true"] ul {
+    color: inherit;
+}
+
+.dark .main-header h1, .dark .main-header p {
+    color: white !important;
+}
+
+/* Dark mode text inputs */
+.dark .stTextInput > div > div > input,
+.dark .stTextArea > div > div > textarea,
+.dark .stNumberInput > div > div > input {
+    color: white !important;
+    background-color: #1f2229 !important;
+    border-color: #4b4b4b !important;
+}
+
+/* Dark mode select boxes */
+.dark .stSelectbox > div > div > div,
+.dark .stMultiselect > div > div > div {
+    color: white !important;
+    background-color: #1f2229 !important;
+    border-color: #4b4b4b !important;
+}
+
+/* Dark mode tables */
+.dark [data-testid="stTable"] {
+    color: white !important;
+}
+
+.dark [data-testid="stTable"] th {
+    background-color: #262730 !important;
+    color: white !important;
+    border-color: #4b4b4b !important;
+}
+
+.dark [data-testid="stTable"] td {
+    border-color: #4b4b4b !important;
+    color: white !important;
+}
+
+/* Fix dark mode plotly charts */
+.dark [data-testid="stPlotlyChart"] {
+    background-color: transparent !important;
 }
 
 /* Progress bar animation */

@@ -27,7 +27,8 @@ def generate_csv_download_link(df, filename="data.csv"):
     """
     csv = df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}">Download CSV</a>'
+    # Add styling to ensure link is visible in both light and dark mode
+    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}" style="background-color: #4CAF50; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin: 10px 0; display: inline-block;">Download CSV</a>'
     return href
 
 def create_pdf_report(location, data, stats):
@@ -192,7 +193,8 @@ def generate_pdf_download_link(location, data, stats, filename="deforestation_re
         return None
     
     b64 = base64.b64encode(buffer.getvalue()).decode()
-    href = f'<a href="data:application/pdf;base64,{b64}" download="{filename}">Download PDF Report</a>'
+    # Add styling to ensure link is visible in both light and dark mode
+    href = f'<a href="data:application/pdf;base64,{b64}" download="{filename}" style="background-color: #FF5722; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin: 10px 0; display: inline-block;">Download PDF Report</a>'
     return href
 
 def download_section():
@@ -280,7 +282,7 @@ def download_section():
             
         excel_buffer.seek(0)
         b64 = base64.b64encode(excel_buffer.getvalue()).decode()
-        excel_href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{location.replace(" ", "_")}_forest_data.xlsx">Download Excel File</a>'
+        excel_href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{location.replace(" ", "_")}_forest_data.xlsx" style="background-color: #2196F3; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin: 10px 0; display: inline-block;">Download Excel File</a>'
         st.markdown(excel_href, unsafe_allow_html=True)
         
         # JSON download
@@ -289,5 +291,5 @@ def download_section():
         json_buffer.write(json_data)
         
         b64 = base64.b64encode(json_buffer.getvalue().encode()).decode()
-        json_href = f'<a href="data:application/json;base64,{b64}" download="{location.replace(" ", "_")}_forest_data.json">Download JSON File</a>'
+        json_href = f'<a href="data:application/json;base64,{b64}" download="{location.replace(" ", "_")}_forest_data.json" style="background-color: #9C27B0; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin: 10px 0; display: inline-block;">Download JSON File</a>'
         st.markdown(json_href, unsafe_allow_html=True)

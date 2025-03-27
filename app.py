@@ -85,6 +85,50 @@ def toggle_theme():
         .css-1oe6wy4 {
             background-color: #1f2229;
         }
+        /* Ensure text is visible in dark mode */
+        .element-container, .stMarkdown, .stText {
+            color: white !important;
+        }
+        .stTextInput > div > div > input {
+            color: white !important;
+        }
+        .stTextArea > div > div > textarea {
+            color: white !important;
+        }
+        .stNumberInput > div > div > input {
+            color: white !important;
+        }
+        .stSelectbox > div > div > div {
+            color: white !important;
+        }
+        .stMultiselect > div > div > div {
+            color: white !important;
+        }
+        /* Make tables more readable in dark mode */
+        .stTable, .dataframe, th, td {
+            color: white !important;
+            border-color: #4b4b4b !important;
+        }
+        .dataframe {
+            background-color: #1f2229 !important;
+        }
+        /* Fix DataFrames in dark mode */
+        .stDataFrame {
+            background-color: #0e1117;
+        }
+        .stDataFrame [data-testid="stTable"] {
+            background-color: #1f2229 !important;
+            color: white !important;
+        }
+        .stDataFrame [data-testid="stTable"] th {
+            background-color: #262730 !important;
+            color: white !important;
+            border-bottom: 1px solid #4b4b4b !important;
+        }
+        /* Fix sliders and other inputs */
+        .stSlider label, .stSlider p {
+            color: white !important;
+        }
         </style>
         """, unsafe_allow_html=True)
     else:
@@ -120,6 +164,50 @@ if st.session_state.theme == "dark":
     }
     .css-1oe6wy4 {
         background-color: #1f2229;
+    }
+    /* Ensure text is visible in dark mode */
+    .element-container, .stMarkdown, .stText {
+        color: white !important;
+    }
+    .stTextInput > div > div > input {
+        color: white !important;
+    }
+    .stTextArea > div > div > textarea {
+        color: white !important;
+    }
+    .stNumberInput > div > div > input {
+        color: white !important;
+    }
+    .stSelectbox > div > div > div {
+        color: white !important;
+    }
+    .stMultiselect > div > div > div {
+        color: white !important;
+    }
+    /* Make tables more readable in dark mode */
+    .stTable, .dataframe, th, td {
+        color: white !important;
+        border-color: #4b4b4b !important;
+    }
+    .dataframe {
+        background-color: #1f2229 !important;
+    }
+    /* Fix DataFrames in dark mode */
+    .stDataFrame {
+        background-color: #0e1117;
+    }
+    .stDataFrame [data-testid="stTable"] {
+        background-color: #1f2229 !important;
+        color: white !important;
+    }
+    .stDataFrame [data-testid="stTable"] th {
+        background-color: #262730 !important;
+        color: white !important;
+        border-bottom: 1px solid #4b4b4b !important;
+    }
+    /* Fix sliders and other inputs */
+    .stSlider label, .stSlider p {
+        color: white !important;
     }
     </style>
     """, unsafe_allow_html=True)
