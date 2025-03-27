@@ -253,12 +253,48 @@ html, body, [class*="css"] {
     background-color: rgba(76, 175, 80, 0.1);
 }
 
-/* Additional dark mode improvements */
-[data-testid="stSidebar"][aria-expanded="true"] ul {
-    color: inherit;
+/* Comprehensive dark mode improvements */
+/* Basic text and backgrounds */
+.dark .main, 
+.dark .stApp, 
+.dark [data-testid="stAppViewContainer"],
+.dark [data-testid="stHeader"],
+.dark [data-testid="stToolbar"],
+.dark [data-testid="stDecoration"],
+.dark [data-testid="baseButton-headerNoPadding"] {
+    background-color: #0e1117 !important;
+    color: white !important;
 }
 
-.dark .main-header h1, .dark .main-header p {
+/* Sidebar specific fixes */
+.dark [data-testid="stSidebar"] {
+    background-color: #1e1e1e !important;
+    color: white !important;
+}
+
+.dark [data-testid="stSidebar"] h1,
+.dark [data-testid="stSidebar"] h2,
+.dark [data-testid="stSidebar"] h3,
+.dark [data-testid="stSidebar"] h4,
+.dark [data-testid="stSidebar"] h5,
+.dark [data-testid="stSidebar"] h6,
+.dark [data-testid="stSidebar"] p,
+.dark [data-testid="stSidebar"] span,
+.dark [data-testid="stSidebar"] label,
+.dark [data-testid="stSidebar"] div {
+    color: white !important;
+}
+
+/* Sidebar radio buttons */
+.dark [data-testid="stSidebar"] [role="radiogroup"] label span p {
+    color: white !important;
+}
+
+/* Main Header and other headers */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, 
+.dark .main-header h1, .dark .main-header p, 
+.dark p, .dark span, .dark label, 
+.dark .stMarkdown, .dark .element-container {
     color: white !important;
 }
 
@@ -277,6 +313,12 @@ html, body, [class*="css"] {
     color: white !important;
     background-color: #1f2229 !important;
     border-color: #4b4b4b !important;
+}
+
+/* Dark mode dropdowns */
+.dark .stSelectbox > div[data-baseweb="select"] > div {
+    background-color: #1f2229 !important;
+    color: white !important;
 }
 
 /* Dark mode tables */
@@ -298,6 +340,75 @@ html, body, [class*="css"] {
 /* Fix dark mode plotly charts */
 .dark [data-testid="stPlotlyChart"] {
     background-color: transparent !important;
+}
+
+/* Dark mode metric values */
+.dark [data-testid="stMetricValue"] {
+    color: white !important;
+}
+
+/* Dark mode radio buttons */
+.dark [role="radiogroup"] label {
+    color: white !important;
+}
+
+/* Small text elements like captions */
+.dark .stCaption, .dark small, .dark .small, .dark caption {
+    color: #cccccc !important;
+}
+
+/* Tooltips in dark mode */
+.dark .stTooltipIcon, .dark .stTooltipLabel {
+    color: #cccccc !important;
+}
+
+/* Expand/Collapse sections in dark mode */
+.dark .streamlit-expanderHeader {
+    color: white !important;
+    background-color: #1f2229 !important;
+}
+
+/* Info/Warning/Error boxes */
+.dark .stAlert {
+    background-color: #1f2229 !important;
+    color: white !important;
+}
+
+.dark .stAlert > div > p {
+    color: white !important;
+}
+
+/* Radio button icons */
+.dark [role="radiogroup"] svg, 
+.dark [data-testid="stWidgetLabel"] > p {
+    color: white !important;
+}
+
+/* Streamlit extra components */
+.dark .colored-header {
+    color: white !important;
+}
+
+.dark .colored-header-description {
+    color: #cccccc !important;
+}
+
+/* Tabs */
+.dark .stTabs [data-baseweb="tab-list"] {
+    background-color: #1e1e1e !important;
+}
+
+.dark .stTabs [data-baseweb="tab"] {
+    color: white !important;
+}
+
+.dark .stTabs [data-baseweb="tab-highlight"] {
+    background-color: #4caf50 !important;
+}
+
+/* Download links and buttons */
+.dark a:not([style]) {
+    color: #4caf50 !important;
 }
 
 /* Progress bar animation */

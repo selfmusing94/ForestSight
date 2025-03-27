@@ -63,151 +63,157 @@ def toggle_theme():
         st.session_state.theme = "dark"
     else:
         st.session_state.theme = "light"
-    
-    # Apply theme
-    if st.session_state.theme == "dark":
-        # Dark theme
-        st.markdown("""
-        <style>
-        .main {
-            background-color: #0e1117;
-            color: white;
-        }
-        .stApp {
-            background-color: #0e1117;
-        }
-        .css-1d391kg {
-            background-color: #262730;
-        }
-        .st-bq {
-            background-color: #262730;
-        }
-        .css-1oe6wy4 {
-            background-color: #1f2229;
-        }
-        /* Ensure text is visible in dark mode */
-        .element-container, .stMarkdown, .stText {
-            color: white !important;
-        }
-        .stTextInput > div > div > input {
-            color: white !important;
-        }
-        .stTextArea > div > div > textarea {
-            color: white !important;
-        }
-        .stNumberInput > div > div > input {
-            color: white !important;
-        }
-        .stSelectbox > div > div > div {
-            color: white !important;
-        }
-        .stMultiselect > div > div > div {
-            color: white !important;
-        }
-        /* Make tables more readable in dark mode */
-        .stTable, .dataframe, th, td {
-            color: white !important;
-            border-color: #4b4b4b !important;
-        }
-        .dataframe {
-            background-color: #1f2229 !important;
-        }
-        /* Fix DataFrames in dark mode */
-        .stDataFrame {
-            background-color: #0e1117;
-        }
-        .stDataFrame [data-testid="stTable"] {
-            background-color: #1f2229 !important;
-            color: white !important;
-        }
-        .stDataFrame [data-testid="stTable"] th {
-            background-color: #262730 !important;
-            color: white !important;
-            border-bottom: 1px solid #4b4b4b !important;
-        }
-        /* Fix sliders and other inputs */
-        .stSlider label, .stSlider p {
-            color: white !important;
-        }
-        </style>
-        """, unsafe_allow_html=True)
-    else:
-        # Light theme (default)
-        st.markdown("""
-        <style>
-        .main {
-            background-color: white;
-            color: #262730;
-        }
-        .stApp {
-            background-color: white;
-        }
-        </style>
-        """, unsafe_allow_html=True)
+    # Theme will be applied after rerun
 
-# Apply current theme
+# Apply current theme with dark mode class
 if st.session_state.theme == "dark":
     st.markdown("""
     <style>
-    .main {
-        background-color: #0e1117;
-        color: white;
+    html, body, [data-testid="stAppViewContainer"], 
+    [data-testid="stHeader"], [data-testid="stToolbar"], 
+    [data-testid="stSidebar"], [data-testid="stMarkdown"] {
+        color-scheme: dark;
     }
-    .stApp {
-        background-color: #0e1117;
+    
+    /* Apply dark class to everything */
+    body {
+        class: dark;
     }
-    .css-1d391kg {
-        background-color: #262730;
+    
+    .dark-mode-active {
+        display: block;
     }
-    .st-bq {
-        background-color: #262730;
-    }
-    .css-1oe6wy4 {
-        background-color: #1f2229;
-    }
-    /* Ensure text is visible in dark mode */
-    .element-container, .stMarkdown, .stText {
+    
+    /* Primary backgrounds */
+    body, .main, .stApp, [data-testid="stAppViewContainer"] {
+        background-color: #0e1117 !important;
         color: white !important;
     }
-    .stTextInput > div > div > input {
+    
+    /* Sidebar specific styling */
+    [data-testid="stSidebar"] {
+        background-color: #1e1e1e !important;
+        border-right: 1px solid #333333 !important;
+    }
+    
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] [data-testid="stMarkdown"],
+    [data-testid="stSidebar"] [role="radiogroup"] label span p {
         color: white !important;
     }
-    .stTextArea > div > div > textarea {
+    
+    /* Navigation and radio buttons */
+    [role="radiogroup"] label {
         color: white !important;
     }
+    
+    [role="radiogroup"] svg {
+        color: white !important;
+    }
+    
+    /* All text elements */
+    h1, h2, h3, h4, h5, h6, p, span, label, .element-container,
+    .stMarkdown, .stText, [data-testid="stWidgetLabel"] {
+        color: white !important;
+    }
+    
+    /* Form inputs */
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea,
     .stNumberInput > div > div > input {
         color: white !important;
+        background-color: #1f2229 !important;
+        border-color: #4b4b4b !important;
     }
-    .stSelectbox > div > div > div {
-        color: white !important;
-    }
+    
+    /* Selectboxes and dropdowns */
+    .stSelectbox > div > div > div,
     .stMultiselect > div > div > div {
         color: white !important;
+        background-color: #1f2229 !important;
+        border-color: #4b4b4b !important;
     }
-    /* Make tables more readable in dark mode */
+    
+    /* Tables and dataframes */
     .stTable, .dataframe, th, td {
         color: white !important;
         border-color: #4b4b4b !important;
     }
+    
     .dataframe {
         background-color: #1f2229 !important;
     }
-    /* Fix DataFrames in dark mode */
+    
     .stDataFrame {
-        background-color: #0e1117;
+        background-color: #0e1117 !important;
     }
+    
     .stDataFrame [data-testid="stTable"] {
         background-color: #1f2229 !important;
         color: white !important;
     }
+    
     .stDataFrame [data-testid="stTable"] th {
         background-color: #262730 !important;
         color: white !important;
         border-bottom: 1px solid #4b4b4b !important;
     }
-    /* Fix sliders and other inputs */
-    .stSlider label, .stSlider p {
+    
+    /* Buttons and sliders */
+    .stButton button {
+        background-color: #4caf50 !important; 
         color: white !important;
+    }
+    
+    .stSlider label, .stSlider p, .stSlider div {
+        color: white !important;
+    }
+    
+    /* Info boxes */
+    [data-testid="stInfo"] {
+        background-color: rgba(30, 30, 30, 0.7) !important;
+        color: white !important;
+    }
+    
+    /* Expanders */
+    .streamlit-expanderHeader {
+        background-color: #1e1e1e !important;
+        color: white !important;
+    }
+    
+    /* Small text and captions */
+    small, .stCaption, caption {
+        color: #cccccc !important;
+    }
+    
+    /* Links */
+    a:not([style]) {
+        color: #4caf50 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Add a class for CSS targeting
+    st.markdown('<div class="dark-mode-active" style="display:none"></div>', unsafe_allow_html=True)
+else:
+    # Light theme - clean slate
+    st.markdown("""
+    <style>
+    html, body, [data-testid="stAppViewContainer"] {
+        color-scheme: light;
+    }
+    body {
+        color: #262730;
+        background-color: white;
+    }
+    .stApp {
+        background-color: white;
+    }
+    .dark-mode-active {
+        display: none;
     }
     </style>
     """, unsafe_allow_html=True)
