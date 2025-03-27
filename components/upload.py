@@ -32,8 +32,58 @@ def upload_section():
         <p>Upload 'before' and 'after' satellite imagery to analyze deforestation patterns.
         The system will process both images and highlight areas where deforestation has been detected between the two timepoints.</p>
         
-        <p><strong>Supported formats:</strong> .jpg, .jpeg, .png<br>
-        <strong>Recommended resolution:</strong> 1000x1000 pixels or higher</p>
+        <div class="format-container" style="display: flex; gap: 1.5rem; margin-top: 1rem;">
+            <div class="format-box" style="background-color: rgba(76, 175, 80, 0.1); padding: 0.8rem 1.2rem; border-radius: 8px; flex: 1; transition: all 0.3s ease;">
+                <h4 class="format-title" style="margin-top: 0; margin-bottom: 0.5rem; color: #2e7d32; font-size: 1rem;">📁 Supported Formats</h4>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <span class="format-tag" style="background-color: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease;">.jpg</span>
+                    <span class="format-tag" style="background-color: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease;">.jpeg</span>
+                    <span class="format-tag" style="background-color: rgba(76, 175, 80, 0.2); padding: 5px 10px; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease;">.png</span>
+                </div>
+            </div>
+            <div class="format-box" style="background-color: rgba(76, 175, 80, 0.1); padding: 0.8rem 1.2rem; border-radius: 8px; flex: 1; transition: all 0.3s ease;">
+                <h4 class="format-title" style="margin-top: 0; margin-bottom: 0.5rem; color: #2e7d32; font-size: 1rem;">🔍 Recommended Resolution</h4>
+                <p class="format-text" style="margin: 0; font-size: 0.9rem; transition: color 0.3s ease;">1000×1000 pixels or higher for optimal analysis results</p>
+            </div>
+        </div>
+        
+        <style>
+        body.dark .format-box,
+        .dark-mode-active .format-box {
+            background-color: rgba(76, 175, 80, 0.15) !important;
+        }
+        
+        body.dark .format-title,
+        .dark-mode-active .format-title {
+            color: #4caf50 !important;
+        }
+        
+        body.dark .format-tag,
+        .dark-mode-active .format-tag {
+            background-color: rgba(76, 175, 80, 0.3) !important;
+            color: #e0e0e0 !important;
+        }
+        
+        body.dark .format-text,
+        .dark-mode-active .format-text {
+            color: #e0e0e0 !important;
+        }
+        
+        .format-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .format-box:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        
+        body.dark .format-box:hover,
+        .dark-mode-active .format-box:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+        }
+        </style>
     </div>
     """, unsafe_allow_html=True)
     
